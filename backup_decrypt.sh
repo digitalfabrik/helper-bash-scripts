@@ -4,4 +4,4 @@ if [[ -z $1 || $1 == "--help" || $1 == "-h" ]]; then
 	exit
 fi
 openssl rsautl -decrypt -inkey $1 -in $2 -out ~/key.bin
-openssl enc -d -aes-256-cbc -in $3 -out ~/database.sql.bz2 -pass file:~/key.bin 
+openssl enc -d -aes-256-cbc -in $3 -out ~/database.sql.bz2 -pass file:$HOME/key.bin
