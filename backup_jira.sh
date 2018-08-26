@@ -13,6 +13,5 @@ rm ~/key.bin
 rm ~/database.sql
 rm ~/backup.tar.bz2
 rm -rf ~/jira/
-cd /tmp/jira-backup
-find ./ -mtime +1 -type f -delete
+find /tmp/jira-backup/ -mtime +1 -type f -delete
 
