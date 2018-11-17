@@ -1,0 +1,11 @@
+#!/bin/bash
+NANOSECS=$(date +%s%N)
+IDS_HOSTS=$(/var/ossec/bin/rootcheck_control -l| grep "ID:" | tr ',' ' ' | awk '{print $2,$4}' | sed -e "s/ /,/")
+for ID_HOST in $IDS_HOSTS; do
+        ID=$(echo $ID_HOST | cut -f1 -d,)
+        HOST=$(echo $ID_HOST | cut -f2 -d,)
+        COUNT=$(/var/ossec/bin/rootcheck_control -qi $ID | grep "first time detected" | wc -l)
+        echo "INSERT issues,status=outstanding,host=$HOST count=$COUNT $NANOSECS"
+        influx -ssl -unsafeSsl -username ossec -password "$1" -database 'ossec' -execute "INSERT issues,status=outstanding,host=$HOST value=$COUNT $NANOSECS"
+done
+
