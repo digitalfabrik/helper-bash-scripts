@@ -1,0 +1,25 @@
+#!/bin/bash
+#echo "Password: $1"
+DATE=$(date -d "-1 min" +"%d/%b/%Y:%H:%M")
+#echo "access log date: $DATE"
+DATE_ERROR=$(date -d "-1 min" +"%b %d %H:%M")
+#echo "error log date: $DATE_ERROR"
+ERRORS=$(cat /var/log/apache2/error.log | grep "$DATE_ERROR" | wc -l)
+#echo "Number of errors: $ERRORS"
+TIMESTAMP=$(date -d "-1 min" +"%s%N")
+
+APIV0=$(cat /var/log/apache2/access.log | grep "$DATE" |grep "/wp-json/extensions/v0/" | wc -l)
+APIV1=$(cat /var/log/apache2/access.log | grep "$DATE" |grep "/wp-json/extensions/v1/" | wc -l)
+APIV2=$(cat /var/log/apache2/access.log | grep "$DATE" |grep "/wp-json/extensions/v2/" | wc -l)
+APIV3=$(cat /var/log/apache2/access.log | grep "$DATE" |grep "/wp-json/extensions/v3/" | wc -l)
+#echo "APIv0 hits: $APIV0"
+#echo "APIv1 hits: $APIV1"
+#echo "APIv2 hits: $APIV2"
+#echo "APIv3 hits: $APIV3"
+
+curl -s -i --insecure -XPOST -u cms:$1 'https://server21.integreat-app.de:8086/write?db=cms' --data-binary "access,api=v0 value=$APIV0 $TIMESTAMP" > /dev/null
+curl -s -i --insecure -XPOST -u cms:$1 'https://server21.integreat-app.de:8086/write?db=cms' --data-binary "access,api=v1 value=$APIV1 $TIMESTAMP" > /dev/null
+curl -s -i --insecure -XPOST -u cms:$1 'https://server21.integreat-app.de:8086/write?db=cms' --data-binary "access,api=v2 value=$APIV2 $TIMESTAMP" > /dev/null
+curl -s -i --insecure -XPOST -u cms:$1 'https://server21.integreat-app.de:8086/write?db=cms' --data-binary "access,api=v3 value=$APIV3 $TIMESTAMP" > /dev/null
+curl -s -i --insecure -XPOST -u cms:$1 'https://server21.integreat-app.de:8086/write?db=cms' --data-binary "error value=$ERRORS $TIMESTAMP" > /dev/null
+
