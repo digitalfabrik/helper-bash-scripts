@@ -1,0 +1,14 @@
+#!/bin/bash
+CERTIFICATES=$(find /etc/letsencrypt/live -name cert.pem)
+
+for CERT in $CERTIFICATES; do
+	#echo $CERT
+	HOST=$(echo $CERT | cut -d/ -f 5)
+	END=$(date --date="$(openssl x509 -enddate -noout -in $CERT | cut -d= -f 2)" +"%s")
+	CUR=$(date +"%s")
+	REMAINING=$(($END - $CUR))
+	TIMESTAMP=$(date +"%s%N")
+	curl -s -i --insecure -XPOST -u certificates:$1 'https://server21.integreat-app.de:8086/write?db=certificates' --data-binary "certificates,remaining=seconds,host=$HOST value=$REMAINING 
+$TIMESTAMP" > /dev/null
+done
+
