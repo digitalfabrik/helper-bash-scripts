@@ -78,6 +78,8 @@ def fetch_data(region, period):
 
 def plot(region, period, stats):
  print("Plotting ...")
+ import matplotlib as mpl
+ mpl.use('Agg')
  import matplotlib.pyplot as plt
  plt.cla()
  for lang in stats:
@@ -139,7 +141,7 @@ Anhang. Bitte antworten sie nicht auf diese E-Mail.
 
 Mit freundlichen Grüßen,
 Das Integreat-Team"""
- send_mail("keineantwort@integreat-app.de", config[region]["email"], "Integreat Statistiken", text, files, "127.0.0.1")
+ send_mail("keineantwort@integreat-app.de", [config[region]["email"]], "Integreat Statistiken", text, files, "127.0.0.1")
 
 def send_mail(send_from, send_to, subject, text, files=None, server="127.0.0.1"):
  assert isinstance(send_to, list)
