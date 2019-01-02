@@ -84,6 +84,7 @@ def fetch_data(region, period):
 def plot(region, period, stats):
  print("Plotting ...")
  import matplotlib as mpl
+ import matplotlib.dates as mdates
  mpl.use('Agg')
  import matplotlib.pyplot as plt
  plt.cla()
@@ -96,9 +97,11 @@ def plot(region, period, stats):
  dates = get_dates(period)
  if period == 'day':
   plt.xlabel("Datum")
+  axes.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
   axes.set_xlim(dates[0], dates[1])
  else:
   plt.xlabel("Monat")
+  axes.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
   axes.set_xlim(dates[0].replace(day=1), dates[1].replace(day=1))
  plt.ylabel("Aufrufe")
  plt.tight_layout()
