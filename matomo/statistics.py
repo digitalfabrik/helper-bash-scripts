@@ -167,7 +167,7 @@ Bei Fragen schreiben Sie bitte an support@integreat-app.de.
 
 Mit freundlichen Grüßen,
 Das Integreat-Team"""
- send_mail("keineantwort@integreat-app.de", [config[region]['email'].split(' ')], "support@integreat-app.de", "Integreat Statistiken", text, files, "127.0.0.1")
+ send_mail("keineantwort@integreat-app.de", config[region]['email'].split(' '), "support@integreat-app.de", "Integreat Statistiken", text, files, "127.0.0.1")
 
 def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="127.0.0.1"):
  assert isinstance(send_to, list)
