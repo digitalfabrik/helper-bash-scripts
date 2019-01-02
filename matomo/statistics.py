@@ -157,10 +157,10 @@ def generate_mails(region, files):
 Integreat-Statistiken für Ihre Kommune.
 
 Folgende Daten finden Sie im Anhang:
-- Diagram der täglichen Aufrufe im letzten Monat
+- Diagramm der täglichen Aufrufe im letzten Monat
 - Rohdaten der täglichen Aufrufe im letzten Monat
-- Diagram de monatlichen Aufrufe im letzten Jahr
-- Rohdaten de monatlichen Aufrufe im letzten Jahr
+- Diagramm der monatlichen Aufrufe im letzten Jahr
+- Rohdaten der monatlichen Aufrufe im letzten Jahr
 Die Zahlen sind jeweils nach Sprache aufgeschlüsselt.
 
 Bei Fragen schreiben Sie bitte an support@integreat-app.de.
