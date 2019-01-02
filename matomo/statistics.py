@@ -6,6 +6,12 @@ import datetime
 import configparser
 import tempfile
 import os
+import smtplib
+from os.path import basename
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.utils import COMMASPACE, formatdate
 
 config = configparser.ConfigParser()
 config.read(os.path.join(os.getenv("HOME"), 'statistics.ini'))
@@ -90,8 +96,10 @@ def plot(region, period, stats):
  plt.ylabel("Aufrufe")
  plt.tight_layout()
  global tempdir
- plt.savefig(os.path.join(tempdir, '{}-{}.png'.format(region, period)), dpi=250)
+ filename = os.path.join(tempdir, '{}-{}.png'.format(region, period))
+ plt.savefig(filename, dpi=250)
  plt = None
+ return filename
 
 def get_date_list(period):
  if period == 'day':
@@ -113,7 +121,8 @@ def dump_data(region, period, stats):
  dates = get_dates(period)
  date_list = get_date_list(period)
  lang_list = list(stats)
- with open(os.path.join(tempdir, '{}-{}.csv'.format(region, period)), "a") as f:
+ filename = os.path.join(tempdir, '{}-{}.csv'.format(region, period))
+ with open(filename, "a") as f:
   f.write("date,{}\n".format(','.join(lang_list)))
   for date in date_list:
    visits = []
@@ -121,18 +130,47 @@ def dump_data(region, period, stats):
     visits.append(str(stats[lang]['dict'][date]))
    line = "{},{}\n".format(date.isoformat(), ','.join(visits))
    f.write(line)
+ return filename
 
-def send_mail():
- pass
+def generate_mails(region, files):
+ text = """Dies ist eine automatisch generierte E-Mail mit den aktuellen
+Integreat-Statistiken für Ihre Kommune. Die Daten befinden sich im
+Anhang. Bitte antworten sie nicht auf diese E-Mail.
+
+Mit freundlichen Grüßen,
+Das Integreat-Team"""
+ send_mail("keineantwort@integreat-app.de", config[region]["email"], "Integreat Statistiken", text, files, "127.0.0.1")
+
+def send_mail(send_from, send_to, subject, text, files=None, server="127.0.0.1"):
+ assert isinstance(send_to, list)
+ msg = MIMEMultipart()
+ msg['From'] = send_from
+ msg['To'] = COMMASPACE.join(send_to)
+ msg['Date'] = formatdate(localtime=True)
+ msg['Subject'] = subject
+ msg.attach(MIMEText(text))
+ for f in files or []:
+  with open(f, "rb") as fil:
+   part = MIMEApplication(
+       fil.read(),
+       Name=basename(f)
+   )
+  part['Content-Disposition'] = 'attachment; filename="%s"' % basename(f)
+  msg.attach(part)
+ smtp = smtplib.SMTP(server)
+ smtp.sendmail(send_from, send_to, msg.as_string())
+ smtp.close()
 
 def main():
  global tempdir
  tempdir = tempfile.mkdtemp(prefix="ig-stats_")
  print("Writing to {}".format(tempdir))
  for region in config.sections():
+  file_list = []
   for period in config[region]['period'].split(' '):
    stats = get_dict(fetch_data(region, period), period)
-   plot(region, period, stats)
-   dump_data(region, period, stats)
+   file_list.append(plot(region, period, stats))
+   file_list.append(dump_data(region, period, stats))
+  generate_mails(region, file_list)
 
 main()
