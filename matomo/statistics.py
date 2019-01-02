@@ -136,8 +136,17 @@ def dump_data(region, period, stats):
 
 def generate_mails(region, files):
  text = """Dies ist eine automatisch generierte E-Mail mit den aktuellen
-Integreat-Statistiken für Ihre Kommune. Die Daten befinden sich im
-Anhang. Bitte antworten sie nicht auf diese E-Mail.
+Integreat-Statistiken für Ihre Kommune.
+
+Folgende Daten finden Sie im Anhang:
+- Diagram der täglichen Aufrufe im letzten Monat
+- Rohdaten der täglichen Aufrufe im letzten Monat
+- Diagram de monatlichen Aufrufe im letzten Jahr
+- Rohdaten de monatlichen Aufrufe im letzten Jahr
+
+Die Zahlen sind jeweils nach Sprache aufgeschlüsselt.
+
+Bitte antworten sie nicht auf diese E-Mail.
 
 Mit freundlichen Grüßen,
 Das Integreat-Team"""
