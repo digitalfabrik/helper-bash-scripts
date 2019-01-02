@@ -30,9 +30,14 @@ ax_title = {
  'fr': 'Französisch'
 }
 
-periods = {
+periods_adj = {
  'day': 'Tägliche',
  'month': 'Monatliche'
+}
+
+periods_deu = {
+ 'day': 'Tag',
+ 'month': 'Monat'
 }
 
 def get_dict(data, period):
@@ -84,7 +89,7 @@ def plot(region, period, stats):
  plt.cla()
  for lang in stats:
   plt.plot(stats[lang]['dates'], stats[lang]['visitors'], color[lang], label=ax_title[lang], alpha=0.9)
- plt.title("{} Integreat API Aufrufe {}".format(periods[period], region))
+ plt.title("{} Integreat API Aufrufe {}".format(periods_adj[period], region))
  plt.legend(bbox_to_anchor=(0.05, 0.95), loc=2, borderaxespad=0.)
  plt.xticks(rotation=23)
  axes = plt.gca()
@@ -98,7 +103,7 @@ def plot(region, period, stats):
  plt.ylabel("Aufrufe")
  plt.tight_layout()
  global tempdir
- filename = os.path.join(tempdir, '{}-{}.png'.format(region, period))
+ filename = os.path.join(tempdir, '{}-{}.png'.format(region, periods_deu[period]))
  plt.savefig(filename, dpi=250)
  plt = None
  return filename
@@ -123,7 +128,7 @@ def dump_data(region, period, stats):
  dates = get_dates(period)
  date_list = get_date_list(period)
  lang_list = list(stats)
- filename = os.path.join(tempdir, '{}-{}.csv'.format(region, period))
+ filename = os.path.join(tempdir, '{}-{}.csv'.format(region, periods_deu[period]))
  with open(filename, "a") as f:
   f.write("date,{}\n".format(','.join(lang_list)))
   for date in date_list:
