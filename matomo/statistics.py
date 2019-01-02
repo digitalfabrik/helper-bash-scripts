@@ -148,7 +148,6 @@ Folgende Daten finden Sie im Anhang:
 - Rohdaten der täglichen Aufrufe im letzten Monat
 - Diagram de monatlichen Aufrufe im letzten Jahr
 - Rohdaten de monatlichen Aufrufe im letzten Jahr
-
 Die Zahlen sind jeweils nach Sprache aufgeschlüsselt.
 
 Bei Fragen schreiben Sie bitte an support@integreat-app.de.
@@ -165,7 +164,7 @@ def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="1
  msg['Reply-To'] = reply_to
  msg['Date'] = formatdate(localtime=True)
  msg['Subject'] = subject
- msg.attach(MIMEText(text))
+ msg.attach(MIMEText(text.encode('utf-8'), 'plain', 'utf-8'))
  for f in files or []:
   with open(f, "rb") as fil:
    part = MIMEApplication(
