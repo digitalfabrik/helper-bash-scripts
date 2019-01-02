@@ -36,12 +36,15 @@ def get_dict(data, period):
   stats[lang]['dict'] = {}
   stats[lang]['dates'] = []
   stats[lang]['visitors'] = []
-  for date in data[lang]:
-   if data[lang][date]:
-    date_dt = datetime.datetime.strptime(date,'%Y-%m-%d') if period == 'day' else datetime.datetime.strptime(date,'%Y-%m')
-    stats[lang]['dict'][date_dt] = data[lang][date]['nb_actions']
-    stats[lang]['dates'].append(date_dt)
-    stats[lang]['visitors'].append(data[lang][date]['nb_actions'])
+  for date in get_date_list(period):
+   key = date.isoformat() if period == "day" else date.strftime("%Y-%m")
+   if key in data[lang] and len(data[lang][key]) > 0:
+    val = data[lang][key]['nb_actions']
+   else:
+    val = 0
+   stats[lang]['dict'][date] = val
+   stats[lang]['dates'].append(date)
+   stats[lang]['visitors'].append(val)
  return stats
 
 def get_dates(period):
@@ -59,7 +62,6 @@ def fetch_data(region, period):
  stats = {}
  dates = get_dates(period)
  date_string = "{},{}".format(dates[0].isoformat(), dates[1].isoformat())
- print(dates)
  for lang in config[region]["languages"].split(" "):
   print("Fetching data for (%s, %s)" % (region, lang))
   site_id = str(config[region]["id"])
@@ -91,14 +93,34 @@ def plot(region, period, stats):
  plt.savefig(os.path.join(tempdir, '{}-{}.png'.format(region, period)), dpi=250)
  plt = None
 
-def date_list(period):
- dates = get_dates(period)
- 
+def get_date_list(period):
+ if period == 'day':
+  dates = get_dates(period)
+  days = (dates[1] - dates[0]).days + 2
+  day_list = []
+  for n in range(1, days):
+   day_list.append(dates[0].replace(day=n))
+  return day_list
+ if period == 'month':
+  dates = get_dates(period)
+  months_list = []
+  for n in range(1, 13):
+   months_list.append(dates[0].replace(month=n))
+  return months_list
+
 def dump_data(region, period, stats):
  lines = {}
- for date in dates:
-  for pos, lang in enumerate(list(stats)):
-   pass
+ dates = get_dates(period)
+ date_list = get_date_list(period)
+ lang_list = list(stats)
+ with open(os.path.join(tempdir, '{}-{}.csv'.format(region, period)), "a") as f:
+  f.write("date,{}\n".format(','.join(lang_list)))
+  for date in date_list:
+   visits = []
+   for lang in lang_list:
+    visits.append(str(stats[lang]['dict'][date]))
+   line = "{},{}\n".format(date.isoformat(), ','.join(visits))
+   f.write(line)
 
 def send_mail():
  pass
@@ -111,5 +133,6 @@ def main():
   for period in config[region]['period'].split(' '):
    stats = get_dict(fetch_data(region, period), period)
    plot(region, period, stats)
+   dump_data(region, period, stats)
 
 main()
