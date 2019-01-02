@@ -19,15 +19,25 @@ api_key = config['DEFAULT']['api_key']
 domain = config['DEFAULT']['domain']
 
 color = {
- 'de': 'r-*',
- 'en': 'b-*',
- 'fr': 'g-*',
+ 'de': '#7e1e9c',
+ 'en': '#15b01a',
+ 'fr': '#0343df',
+ 'ar': '#ff81c0',
+ 'fa': '#653700',
+ 'am': '#e50000',
+ 'ru': '#95d0fc',
+ 'tr': '#029386',
 }
 
 ax_title = {
  'de': 'Deutsch',
  'en': 'Englisch',
- 'fr': 'Französisch'
+ 'fr': 'Französisch',
+ 'ar': 'Arabisch',
+ 'fa': 'Farsi',
+ 'am': 'Amharisch',
+ 'ru': 'Russisch',
+ 'tr': 'Türkisch',
 }
 
 periods_adj = {
@@ -89,7 +99,7 @@ def plot(region, period, stats):
  import matplotlib.pyplot as plt
  plt.cla()
  for lang in stats:
-  plt.plot(stats[lang]['dates'], stats[lang]['visitors'], color[lang], label=ax_title[lang], alpha=0.9)
+  plt.plot(stats[lang]['dates'], stats[lang]['visitors'], marker='*', linestyle='-', markerfacecolor=color[lang], markeredgecolor=color[lang], color=color[lang], label=ax_title[lang], alpha=0.9)
  plt.title("{} Integreat API Aufrufe {}".format(periods_adj[period], region))
  plt.legend(bbox_to_anchor=(0.05, 0.95), loc=2, borderaxespad=0.)
  plt.xticks(rotation=23)
@@ -157,7 +167,7 @@ Bei Fragen schreiben Sie bitte an support@integreat-app.de.
 
 Mit freundlichen Grüßen,
 Das Integreat-Team"""
- send_mail("keineantwort@integreat-app.de", [config[region]["email"]], "support@integreat-app.de", "Integreat Statistiken", text, files, "127.0.0.1")
+ send_mail("keineantwort@integreat-app.de", [config[region]['email'].split(' ')], "support@integreat-app.de", "Integreat Statistiken", text, files, "127.0.0.1")
 
 def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="127.0.0.1"):
  assert isinstance(send_to, list)
