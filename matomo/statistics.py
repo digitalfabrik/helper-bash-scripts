@@ -151,17 +151,18 @@ Folgende Daten finden Sie im Anhang:
 
 Die Zahlen sind jeweils nach Sprache aufgeschlüsselt.
 
-Bitte antworten sie nicht auf diese E-Mail.
+Bei Fragen schreiben Sie bitte an support@integreat-app.de.
 
 Mit freundlichen Grüßen,
 Das Integreat-Team"""
  send_mail("keineantwort@integreat-app.de", [config[region]["email"]], "Integreat Statistiken", text, files, "127.0.0.1")
 
-def send_mail(send_from, send_to, subject, text, files=None, server="127.0.0.1"):
+def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="127.0.0.1"):
  assert isinstance(send_to, list)
  msg = MIMEMultipart()
  msg['From'] = send_from
  msg['To'] = COMMASPACE.join(send_to)
+ msg['Reply-To'] = reply_to
  msg['Date'] = formatdate(localtime=True)
  msg['Subject'] = subject
  msg.attach(MIMEText(text))
