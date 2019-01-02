@@ -45,17 +45,13 @@ def get_dict(data, period):
  return stats
 
 def get_dates(period):
+ today = datetime.date.today()
+ first = today.replace(day=1)
+ last_month_end = first - datetime.timedelta(days=1)
+ last_month_first = last_month_end.replace(day=1)
  if period == 'day':
-  today = datetime.date.today()
-  first = today.replace(day=1)
-  last_month = first - datetime.timedelta(days=1)
-  last_month_first = last_month.replace(day=1)
-  return (last_month_first, last_month)
+  return (last_month_first, last_month_end)
  elif period == 'month':
-  today = datetime.date.today()
-  first = today.replace(day=1)
-  last_month_end = first - datetime.timedelta(days=1)
-  last_month_first = last_month_end.replace(day=1)
   first_month = (last_month_end - datetime.timedelta(days=364)).replace(day=1)
   return (first_month, last_month_end)
 
