@@ -218,7 +218,7 @@ def main():
  if args.verbose:
   print("Writing to {}".format(tempdir))
  if args.region:
-  whitelist_regions = args.region.split(",").strip()
+  whitelist_regions = [i.strip() for i in args.region.split(",")]
  for region in config.sections():
   if args.region and region not in whitelist_regions:
    continue
