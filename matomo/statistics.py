@@ -101,7 +101,7 @@ def fetch_data(region, period):
  dates = get_dates(period)
  date_string = "{},{}".format(dates[0].isoformat(), dates[1].isoformat())
  for lang in config[region]["languages"].split(" "):
-  if args.verbosity:
+  if args.verbose:
    print("Fetching data for (%s, %s)" % (region, lang))
   site_id = str(config[region]["id"])
   url = "https://{}/index.php?date={}&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite={}&method=API.get&module=API&period={}&segment=pageUrl%253D@%25252F{}%25252Fwp-json%25252F&token_auth={}".format(
@@ -110,7 +110,7 @@ def fetch_data(region, period):
  return stats
 
 def plot(region, period, stats):
- if args.verbosity:
+ if args.verbose:
   print("Plotting ...")
  import matplotlib as mpl
  import matplotlib.dates as mdates
@@ -215,7 +215,7 @@ def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="1
 def main():
  global tempdir
  tempdir = tempfile.mkdtemp(prefix="ig-stats_")
- if args.verbosity:
+ if args.verbose:
   print("Writing to {}".format(tempdir))
  for region in config.sections():
   file_list = []
@@ -229,7 +229,5 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--verbose", help="increase output verbosity", action='store_true')
 parser.add_argument("--send-all-mails", help="Send mails to all recipients. Without this argument, mails will only be sent to the test address.", action='store_true')
 args = parser.parse_args()
-if args.help:
- quit()
 
 main()
