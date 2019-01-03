@@ -32,6 +32,7 @@ color = {
  'ti': '#c20078',
  'sr': '#ffff14',
  'per': '#75bbfd',
+ 'bg': '#929591',
 }
 
 ax_title = {
@@ -48,6 +49,7 @@ ax_title = {
  'ti': 'Tigrinya',
  'sr': 'Serbisch',
  'per': 'Persisch',
+ 'bg': 'Bulgarisch',
 }
 
 periods_adj = {
