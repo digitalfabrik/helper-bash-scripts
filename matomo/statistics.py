@@ -217,7 +217,11 @@ def main():
  tempdir = tempfile.mkdtemp(prefix="ig-stats_")
  if args.verbose:
   print("Writing to {}".format(tempdir))
+ if args.region:
+  whitelist_regions = args.region.split(",").strip()
  for region in config.sections():
+  if args.region and region not in whitelist_regions:
+   continue
   file_list = []
   for period in config[region]['period'].split(' '):
    stats = get_dict(fetch_data(region, period), period)
@@ -228,6 +232,7 @@ def main():
 parser = argparse.ArgumentParser()
 parser.add_argument("--verbose", help="increase output verbosity", action='store_true')
 parser.add_argument("--send-all-mails", help="Send mails to all recipients. Without this argument, mails will only be sent to the test address.", action='store_true')
+parser.add_argument("--region", help="Comma separated list of regions to send statistics to. Use quotes.")
 args = parser.parse_args()
 
 main()
