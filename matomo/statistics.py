@@ -7,6 +7,7 @@ import configparser
 import tempfile
 import os
 import smtplib
+import argparse
 from os.path import basename
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
@@ -100,7 +101,8 @@ def fetch_data(region, period):
  dates = get_dates(period)
  date_string = "{},{}".format(dates[0].isoformat(), dates[1].isoformat())
  for lang in config[region]["languages"].split(" "):
-  print("Fetching data for (%s, %s)" % (region, lang))
+  if args.verbosity:
+   print("Fetching data for (%s, %s)" % (region, lang))
   site_id = str(config[region]["id"])
   url = "https://{}/index.php?date={}&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite={}&method=API.get&module=API&period={}&segment=pageUrl%253D@%25252F{}%25252Fwp-json%25252F&token_auth={}".format(
   domain, date_string, site_id, period, lang, api_key)
@@ -108,7 +110,8 @@ def fetch_data(region, period):
  return stats
 
 def plot(region, period, stats):
- print("Plotting ...")
+ if args.verbosity:
+  print("Plotting ...")
  import matplotlib as mpl
  import matplotlib.dates as mdates
  mpl.use('Agg')
@@ -183,7 +186,10 @@ Bei Fragen schreiben Sie bitte an support@integreat-app.de.
 
 Mit freundlichen Grüßen,
 Das Integreat-Team"""
- send_mail("keineantwort@integreat-app.de", config[region]['email'].split(' '), "support@integreat-app.de", "Integreat Statistiken", text, files, "127.0.0.1")
+ recipients = ["support@integreat-app.de"]
+ if args.send_all_mails:
+  recipients = list(set(recipients + config[region]['email'].split(' ')))
+ send_mail("keineantwort@integreat-app.de", recipients, "support@integreat-app.de", "Integreat Statistiken", text, files, "127.0.0.1")
 
 def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="127.0.0.1"):
  assert isinstance(send_to, list)
@@ -209,7 +215,8 @@ def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="1
 def main():
  global tempdir
  tempdir = tempfile.mkdtemp(prefix="ig-stats_")
- print("Writing to {}".format(tempdir))
+ if args.verbosity:
+  print("Writing to {}".format(tempdir))
  for region in config.sections():
   file_list = []
   for period in config[region]['period'].split(' '):
@@ -217,5 +224,12 @@ def main():
    file_list.append(plot(region, period, stats))
    file_list.append(dump_data(region, period, stats))
   generate_mails(region, file_list)
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--verbose", help="increase output verbosity", action='store_true')
+parser.add_argument("--send-all-mails", help="Send mails to all recipients. Without this argument, mails will only be sent to the test address.", action='store_true')
+args = parser.parse_args()
+if args.help:
+ quit()
 
 main()
