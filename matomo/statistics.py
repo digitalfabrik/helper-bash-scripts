@@ -33,6 +33,7 @@ color = {
  'sr': '#ffff14',
  'per': '#75bbfd',
  'bg': '#929591',
+ 'so': '#89fe05',
 }
 
 ax_title = {
@@ -50,6 +51,7 @@ ax_title = {
  'sr': 'Serbisch',
  'per': 'Persisch',
  'bg': 'Bulgarisch',
+ 'so': 'Somali',
 }
 
 periods_adj = {
