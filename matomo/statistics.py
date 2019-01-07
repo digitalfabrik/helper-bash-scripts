@@ -76,7 +76,7 @@ def get_dict(data, period):
   stats[lang]['dates'] = []
   stats[lang]['visitors'] = []
   for date in get_date_list(period):
-   key = date.isoformat() if period == "day" else date.strftime("%Y-%m")
+   key = date.strftime('%Y-%m-%d') if period == "day" else date.strftime("%Y-%m")
    if key in data[lang] and len(data[lang][key]) > 0:
     val = data[lang][key]['nb_actions']
    else:
@@ -103,16 +103,15 @@ def get_dates(period):
 def fetch_data(region, period):
  stats = {}
  dates = get_dates(period)
- if period == "month":
-  date_string = "{},{}".format(dates[0].strftime('%Y-%m'), dates[1].strftime('%Y-%m'))
- else:
-  date_string = "{},{}".format(dates[0].strftime('%Y-%m-%d'), dates[1].strftime('%Y-%m-%d'))
+ date_string = "{},{}".format(dates[0].strftime('%Y-%m-%d'), dates[1].strftime('%Y-%m-%d'))
  for lang in config[region]["languages"].split(" "):
   if args.verbose:
    print("Fetching data for (%s, %s)" % (region, lang))
   site_id = str(config[region]["id"])
   url = "https://{}/index.php?date={}&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite={}&method=API.get&module=API&period={}&segment=pageUrl%253D@%25252F{}%25252Fwp-json%25252F&token_auth={}".format(
   domain, date_string, site_id, period, lang, api_key)
+  if args.verbose:
+   print(url)
   stats[lang] = requests.get(url).json()
  return stats
 
