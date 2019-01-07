@@ -103,7 +103,10 @@ def get_dates(period):
 def fetch_data(region, period):
  stats = {}
  dates = get_dates(period)
- date_string = "{},{}".format(dates[0].strftime('%Y-%m-%d'), dates[1].strftime('%Y-%m-%d'))
+ if period == "month":
+  date_string = "{},{}".format(dates[0].strftime('%Y-%m'), dates[1].strftime('%Y-%m'))
+ else:
+  date_string = "{},{}".format(dates[0].strftime('%Y-%m-%d'), dates[1].strftime('%Y-%m-%d'))
  for lang in config[region]["languages"].split(" "):
   if args.verbose:
    print("Fetching data for (%s, %s)" % (region, lang))
