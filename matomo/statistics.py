@@ -11,6 +11,7 @@ import argparse
 from os.path import basename
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
 from email.utils import COMMASPACE, formatdate
 from email import encoders
 
