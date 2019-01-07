@@ -9,10 +9,10 @@ import os
 import smtplib
 import argparse
 from os.path import basename
-from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import COMMASPACE, formatdate
+from email import encoders
 
 config = configparser.ConfigParser()
 config.read(os.path.join(os.getenv("HOME"), 'statistics.ini'))
@@ -176,12 +176,14 @@ def generate_mails(region, files):
 Integreat-Statistiken für Ihre Kommune.
 
 Folgende Daten finden Sie im Anhang:
-- Diagramm der täglichen Aufrufe im letzten Monat
-- Rohdaten der täglichen Aufrufe im letzten Monat
-- Diagramm der monatlichen Aufrufe im letzten Jahr
-- Rohdaten der monatlichen Aufrufe im letzten Jahr
+- Diagramm der täglichen Aufrufe im letzten Monat (PNG)
+- Rohdaten der täglichen Aufrufe im letzten Monat (CSV)
+- Diagramm der monatlichen Aufrufe im letzten Jahr (PNG)
+- Rohdaten der monatlichen Aufrufe im letzten Jahr (CSV)
 Die Zahlen sind jeweils nach Sprache aufgeschlüsselt.
 
+Details zum Lesen der Statistiken finden Sie auf
+https://wiki.integreat-app.de/Statistiken_lesen
 Bei Fragen schreiben Sie bitte an support@integreat-app.de.
 
 Mit freundlichen Grüßen,
@@ -202,10 +204,12 @@ def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="1
  msg.attach(MIMEText(text.encode('utf-8'), 'plain', 'utf-8'))
  for f in files or []:
   with open(f, "rb") as fil:
-   part = MIMEApplication(
-       fil.read(),
-       Name=basename(f)
-   )
+   if basename(f).endswith(".png"):
+    part = MIMEBase('image', 'png')
+   else:
+    part = MIMEBase('text', 'csv')
+   part.set_payload(fil.read())
+   encoders.encode_base64(part)
   part['Content-Disposition'] = 'attachment; filename="%s"' % basename(f)
   msg.attach(part)
  smtp = smtplib.SMTP(server)
