@@ -86,7 +86,10 @@ def get_dict(data, period):
  return stats
 
 def get_dates(period):
- today = datetime.date.today()
+ if args.month:
+  today = datetime.datetime.strptime(args.month, "%Y-%m")
+ else:
+  today = datetime.date.today()
  first = today.replace(day=1)
  last_month_end = first - datetime.timedelta(days=1)
  last_month_first = last_month_end.replace(day=1)
@@ -237,6 +240,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--verbose", help="increase output verbosity", action='store_true')
 parser.add_argument("--send-all-mails", help="Send mails to all recipients. Without this argument, mails will only be sent to the test address.", action='store_true')
 parser.add_argument("--region", help="Comma separated list of regions to send statistics to. Use quotes.")
+parser.add_argument("--month", help="A month for which to send the data. Format: YYYY-MM")
 args = parser.parse_args()
 
 main()
