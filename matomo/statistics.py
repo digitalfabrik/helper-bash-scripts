@@ -173,7 +173,7 @@ def dump_data(region, period, stats):
    visits = []
    for lang in lang_list:
     visits.append(str(stats[lang]['dict'][date]))
-   line = "{},{}\n".format(date.isoformat(), ','.join(visits))
+   line = "{},{}\n".format(date.strftime('%Y-%m-%d'), ','.join(visits))
    f.write(line)
  return filename
 
@@ -206,7 +206,6 @@ def send_mail(send_from, send_to, bcc, reply_to, subject, text, files=None, serv
  msg = MIMEMultipart()
  msg['From'] = send_from
  msg['To'] = COMMASPACE.join(send_to)
- msg['To'] = COMMASPACE.join(bcc)
  msg['Reply-To'] = reply_to
  msg['Date'] = formatdate(localtime=True)
  msg['Subject'] = subject
@@ -222,7 +221,7 @@ def send_mail(send_from, send_to, bcc, reply_to, subject, text, files=None, serv
   part['Content-Disposition'] = 'attachment; filename="%s"' % basename(f)
   msg.attach(part)
  smtp = smtplib.SMTP(server)
- smtp.sendmail(send_from, send_to, msg.as_string())
+ smtp.sendmail(send_from, send_to + bcc, msg.as_string())
  smtp.close()
 
 def main():
