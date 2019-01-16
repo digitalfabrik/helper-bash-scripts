@@ -64,8 +64,8 @@ periods_adj = {
 }
 
 periods_deu = {
- 'day': 'Tag',
- 'month': 'Monat'
+ 'day': 'Monat',
+ 'month': 'Jahr'
 }
 
 def get_dict(data, period):
@@ -104,6 +104,8 @@ def fetch_data(region, period):
  stats = {}
  dates = get_dates(period)
  date_string = "{},{}".format(dates[0].strftime('%Y-%m-%d'), dates[1].strftime('%Y-%m-%d'))
+ global month
+ month = dates[1].strftime('%Y-%m')
  for lang in config[region]["languages"].split(" "):
   if args.verbose:
    print("Fetching data for (%s, %s)" % (region, lang))
@@ -116,6 +118,7 @@ def fetch_data(region, period):
  return stats
 
 def plot(region, period, stats):
+ global month
  if args.verbose:
   print("Plotting ...")
  import matplotlib as mpl
@@ -125,7 +128,7 @@ def plot(region, period, stats):
  plt.cla()
  for lang in stats:
   plt.plot(stats[lang]['dates'], stats[lang]['visitors'], marker='*', linestyle='-', markerfacecolor=color[lang], markeredgecolor=color[lang], color=color[lang], label=ax_title[lang], alpha=0.9)
- plt.title("{} Integreat API Aufrufe {}".format(periods_adj[period], region))
+ plt.title("{} Integreat API Aufrufe {} {}".format(periods_adj[period], region, month))
  plt.legend(bbox_to_anchor=(0.05, 0.95), loc=2, borderaxespad=0.)
  plt.xticks(rotation=23)
  axes = plt.gca()
@@ -141,7 +144,7 @@ def plot(region, period, stats):
  plt.ylabel("Aufrufe")
  plt.tight_layout()
  global tempdir
- filename = os.path.join(tempdir, '{}-{}.png'.format(region, periods_deu[period]))
+ filename = os.path.join(tempdir, '{}_{}_{}.png'.format(region, month, periods_deu[period]))
  plt.savefig(filename, dpi=250)
  plt = None
  return filename
@@ -166,7 +169,8 @@ def dump_data(region, period, stats):
  dates = get_dates(period)
  date_list = get_date_list(period)
  lang_list = list(stats)
- filename = os.path.join(tempdir, '{}-{}.csv'.format(region, periods_deu[period]))
+ global month
+ filename = os.path.join(tempdir, '{}_{}_{}.csv'.format(region, month, periods_deu[period]))
  with open(filename, "a") as f:
   f.write("date,{}\n".format(','.join(lang_list)))
   for date in date_list:
@@ -189,7 +193,7 @@ Folgende Daten finden Sie im Anhang:
 Die Zahlen sind jeweils nach Sprache aufgeschlüsselt.
 
 Details zum Lesen der Statistiken finden Sie auf
-https://wiki.integreat-app.de/Statistiken_lesen
+https://wiki.integreat-app.de/statistiken#statistiken_per_e-mail
 Bei Fragen schreiben Sie bitte an support@integreat-app.de.
 
 Mit freundlichen Grüßen,
@@ -199,7 +203,8 @@ Das Integreat-Team"""
  if args.send_all_mails:
   recipients = list(set(recipients + config[region]['email'].split(' ')))
   bcc = list(set(recipients + config[region]['bcc'].split(' ')))
- send_mail("keineantwort@integreat-app.de", recipients, bcc, "support@integreat-app.de", "Integreat Statistiken", text, files, "127.0.0.1")
+ global month
+ send_mail("keineantwort@integreat-app.de", recipients, bcc, "support@integreat-app.de", "Integreat Statistiken {}".format(month), text, files, "127.0.0.1")
 
 def send_mail(send_from, send_to, bcc, reply_to, subject, text, files=None, server="127.0.0.1"):
  assert isinstance(send_to, list)
