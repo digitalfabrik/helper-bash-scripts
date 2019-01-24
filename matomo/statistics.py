@@ -223,7 +223,8 @@ def send_mail(send_from, send_to, bcc, reply_to, subject, text, files=None, serv
     part = MIMEBase('text', 'csv')
    part.set_payload(fil.read())
    encoders.encode_base64(part)
-  part['Content-Disposition'] = 'attachment; filename="%s"' % basename(f)
+  filename = basename(f).replace("ö", "oe").replace("ä", "ae").replace("ü", "ue").replace("ß", "sz").replace("Ü", "Ue").replace("Ö", "Oe").replace("Ä", "Ae")
+  part['Content-Disposition'] = 'attachment; filename="%s"' % filename
   msg.attach(part)
  smtp = smtplib.SMTP(server)
  smtp.sendmail(send_from, send_to + bcc, msg.as_string())
