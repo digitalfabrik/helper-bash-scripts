@@ -4,15 +4,16 @@ import requests
 import json
 import sys
 
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+
+
+if sys.stdout.isatty():
+ OKGREEN = '\033[92m'
+ FAIL = '\033[91m'
+ ENDC = '\033[0m'
+else:
+ OKGREEN = ''
+ FAIL = ''
+ ENDC = ''
 
 exit_code = 0
 
@@ -39,7 +40,7 @@ def test_url(url, code, mimetype, redirect = None):
  if not response_code_ok or not mimetype_ok or dataset_length == 0:
   global exit_code
   exit_code = 1
-  print("[{}FAIL{}] {}".format(bcolors.FAIL, bcolors.ENDC, url))
+  print("[{}FAIL{}] {}".format(FAIL, ENDC, url))
   print("       Status: {}, expected {} - {}".format(r.status_code, code, response_code_ok))
   print("       Mimetype: {}, expected {} - {}".format(r.headers['content-type'], mimetype, mimetype_ok))
   if 'Location' in r.headers:
@@ -47,7 +48,7 @@ def test_url(url, code, mimetype, redirect = None):
   if mimetype == 'application/json':
    print("       Dataset length: {}".format(dataset_length))
  else:
-  print("[ {}OK{} ] {}".format(bcolors.OKGREEN, bcolors.ENDC, url))
+  print("[ {}OK{} ] {}".format(OKGREEN, ENDC, url))
  
 test_url('https://cms.integreat-app.de/',
  301,
