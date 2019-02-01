@@ -135,8 +135,18 @@ test_url('https://cms.integreat-app.de/wp-json/extensions/v3/sites',
  'application/json')
 
 test_url('https://cms.integreat-app.de/augsburg/wp-content/themes/integreat-webview/style.css',
- 403,
+ 404,
  'text/html'
+)
+
+test_url('https://integreat.app/landing/en',
+ 200,
+ 'text/html'
+)
+
+test_url('https://integreat.app/fonts/open-sans/open-sans.css',
+ 200,
+ 'text/css'
 )
 
 exit(exit_code)
