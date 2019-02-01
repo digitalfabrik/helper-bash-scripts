@@ -33,11 +33,15 @@ def test_url(url, code, mimetype, redirect = None):
   if redirect in r.headers['Location']:
    redirect_ok = True
 
- dataset_length = -1
+ dataset_length_ok = True
  if mimetype == 'application/json':
   dataset_length = len(json.loads(r.text))
+  if dataset_length > 5:
+   dataset_length_ok = True
+  else:
+   dataset_length_ok = False
 
- if not response_code_ok or not mimetype_ok or dataset_length == 0:
+ if not response_code_ok or not mimetype_ok or not dataset_length_ok:
   global exit_code
   exit_code = 1
   print("[{}FAIL{}] {}".format(FAIL, ENDC, url))
