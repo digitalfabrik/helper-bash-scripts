@@ -37,11 +37,13 @@ color = {
  'bg': '#929591',
  'so': '#89fe05',
  'pl': '#bf77f6',
+ 'es': '#9a0eea',
 }
 
 ax_title = {
  'de': 'Deutsch',
  'en': 'Englisch',
+ 'es': 'Spanisch',
  'fr': 'Französisch',
  'ar': 'Arabisch',
  'fa': 'Farsi',
