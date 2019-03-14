@@ -8,6 +8,7 @@ import tempfile
 import os
 import smtplib
 import argparse
+from dateutil.rrule import rrule, MONTHLY, DAILY
 from os.path import basename
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -155,15 +156,11 @@ def get_date_list(period):
  if period == 'day':
   dates = get_dates(period)
   days = (dates[1] - dates[0]).days + 2
-  day_list = []
-  for n in range(1, days):
-   day_list.append(dates[0].replace(day=n))
+  day_list = [dt for dt in rrule(DAILY, dtstart=dates[0], until=dates[1])]
   return day_list
  if period == 'month':
   dates = get_dates(period)
-  months_list = []
-  for n in range(1, 13):
-   months_list.append(dates[0].replace(month=n))
+  months_list = [dt for dt in rrule(MONTHLY, dtstart=dates[0], until=dates[1])]
   return months_list
 
 def dump_data(region, period, stats):
