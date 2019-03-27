@@ -8,7 +8,6 @@ for CERT in $CERTIFICATES; do
 	CUR=$(date +"%s")
 	REMAINING=$(($END - $CUR))
 	TIMESTAMP=$(date +"%s%N")
-	curl -s -i --insecure -XPOST -u certificates:$1 'https://server21.integreat-app.de:8086/write?db=certificates' --data-binary "certificates,remaining=seconds,host=$HOST value=$REMAINING 
-$TIMESTAMP" > /dev/null
+	curl -s -i --insecure -XPOST -u certificates:$1 'https://server21.integreat-app.de:8086/write?db=certificates' --data-binary "certificates,remaining=seconds,host=$HOST value=$REMAINING $TIMESTAMP" > /dev/null
 done
 
