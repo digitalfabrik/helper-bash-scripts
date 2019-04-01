@@ -1,4 +1,0 @@
-# Client
-* *	* * *	root /usr/local/bin/block_ips USER SERVER > /dev/null 2>&1
-# Server
-* *	* * *	root /usr/local/bin/update_blocklist USER > /dev/null 2>&1
