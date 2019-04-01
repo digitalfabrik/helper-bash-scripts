@@ -1,9 +1,17 @@
 #!/bin/bash
 sleep 10
-scp $1@$2:/home/$1/blocklist.txt /root/blocklist.txt
-BLOCKLIST=$(cat /root/blocklist.txt | tr '\n' ' ')
+
+scp $1@$2:/home/$1/blocklist-sshd.txt /root/blocklist-sshd.txt
+BLOCKLIST=$(cat /root/blocklist-sshd.txt | tr '\n' ' ')
 for IP in $BLOCKLIST
   do
     fail2ban-client set sshd banip $IP
+  done
+
+scp $1@$2:/home/$1/blocklist-cms.txt /root/blocklist-cms.txt
+BLOCKLIST=$(cat /root/blocklist-cms.txt | tr '\n' ' ')
+for IP in $BLOCKLIST
+  do
+    fail2ban-client set integreat-cms banip $IP
   done
 

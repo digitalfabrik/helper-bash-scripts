@@ -1,2 +1,4 @@
 #!/bin/bash
-iptables --list f2b-sshd-cluster -nv | tail -n +3 | awk '{print $8}' | grep -v "0.0.0.0" > /home/$1/blocklist.txt
+iptables --list f2b-sshd-cluster -nv | tail -n +3 | awk '{print $8}' | grep -v "0.0.0.0" > /home/$1/blocklist-sshd.txt
+iptables --list f2b-integreat-cms -nv | tail -n +3 | awk '{print $8}' | grep -v "0.0.0.0" > /home/$1/blocklist-cms.txt
+
