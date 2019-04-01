@@ -1,7 +1,9 @@
 #!/bin/bash
-git -C /opt/ip-blocklist pull
-BLOCKLIST=$(cat /opt/ip-blocklist/blocklist.txt | tr '\n' ' ')
+sleep 10
+scp $1@$2:/home/$1/blocklist.txt /root/blocklist.txt
+BLOCKLIST=$(cat /root/blocklist.txt | tr '\n' ' ')
 for IP in $BLOCKLIST
   do
     fail2ban-client set sshd banip $IP
   done
+

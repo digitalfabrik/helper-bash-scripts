@@ -1,7 +1,2 @@
 #!/bin/bash
-cd /opt/ip-blocklist
-DATE=$(date)
-iptables --list f2b-sshd-cluster -nv | tail -n +3 | awk '{print $8}' | grep -v "0.0.0.0" > /opt/ip-blocklist/blocklist.txt
-git -C /opt/ip-blocklist/ commit -am "$DATE"
-git -C /opt/ip-blocklist/ push
-
+iptables --list f2b-sshd-cluster -nv | tail -n +3 | awk '{print $8}' | grep -v "0.0.0.0" > /home/$1/blocklist.txt

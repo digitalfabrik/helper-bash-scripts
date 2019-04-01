@@ -1,4 +1,4 @@
 # Client
-1,6,11,16,21,26,31,36,41,46,51,56 *	* * *	root /usr/local/bin/block_ips > /dev/null 2>&1
+* *	* * *	root /usr/local/bin/block_ips USER SERVER > /dev/null 2>&1
 # Server
-0,5,10,15,20,25,30,35,40,45,50,55 *	* * *	root /usr/local/bin/update_blocklist > /dev/null 2>&1
+* *	* * *	root /usr/local/bin/update_blocklist USER > /dev/null 2>&1
