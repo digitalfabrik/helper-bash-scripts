@@ -1,4 +1,6 @@
 #!/bin/bash
+# Run this script as a cron job every minute
+
 if [ -f /var/www/reset_cms ]; then
     echo "Resetting CMS"
     rm /var/www/reset_cms
