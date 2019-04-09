@@ -1,0 +1,18 @@
+#!/bin/bash
+if [ -f /var/www/reset_cms ]; then
+    echo "Resetting CMS"
+    rm /var/www/reset_cms
+
+    # To speed up the process, copy the db files
+    systemctl stop mariadb.service
+    rm -rf /var/lib/mysql/ig_cms
+    cp -pr /root/ig_cms.bak /var/lib/mysql/ig_cms
+    systemctl start mariadb.service
+
+    # alternative, but much slower: source the sql dump
+    #mysql -A -u root ig_cms < /root/database.sql
+    #cd /var/www/cms
+    #sudo -u www-data php migrate-database.php
+
+    sudo -u www-data echo 1 > /var/www/webhooks/reset_done
+fi
