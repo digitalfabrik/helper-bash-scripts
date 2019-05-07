@@ -198,14 +198,12 @@ Bei Fragen schreiben Sie bitte an support@integreat-app.de.
 Mit freundlichen Grüßen,
 Das Integreat-Team"""
  recipients = ["support@integreat-app.de"]
- bcc = []
  if args.send_all_mails:
   recipients = list(set(recipients + config[region]['email'].split(' ')))
-  bcc = list(set(recipients + config[region]['bcc'].split(' ')))
  global month
- send_mail("keineantwort@integreat-app.de", recipients, bcc, "support@integreat-app.de", "Integreat Statistiken {}".format(month), text, files, "127.0.0.1")
+ send_mail("keineantwort@integreat-app.de", recipients, "support@integreat-app.de", "Integreat Statistiken {}".format(month), text, files, "127.0.0.1")
 
-def send_mail(send_from, send_to, bcc, reply_to, subject, text, files=None, server="127.0.0.1"):
+def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="127.0.0.1"):
  assert isinstance(send_to, list)
  msg = MIMEMultipart()
  msg['From'] = send_from
@@ -226,7 +224,7 @@ def send_mail(send_from, send_to, bcc, reply_to, subject, text, files=None, serv
   part['Content-Disposition'] = 'attachment; filename="%s"' % filename
   msg.attach(part)
  smtp = smtplib.SMTP(server)
- smtp.sendmail(send_from, send_to + bcc, msg.as_string())
+ smtp.sendmail(send_from, send_to, msg.as_string())
  smtp.close()
 
 def main():
