@@ -2,41 +2,57 @@
 
 import sys
 import os
-#from xml.etree import ElementTree, cElementTree
 from lxml import etree
 import copy
 
 def generate_tmx(args):
 	old_tree = etree.parse(os.path.join(os.getcwd(), args.input))
-	old_body = old_tree.xpath('/tmx/body')
-
-	new_tree = copy.deepcopy(old_tree)
-	new_body = new_tree.xpath('/tmx/body')
+	old_body = old_tree.xpath('/tmx/body')[0]
 
 	for old_tu in old_tree.xpath('/tmx/body/tu'):
 		segments = get_segments(old_tu)
-		#new_tu = etree.SubElement(body, changedate=old_tu.attrib['changedate'])
+		if segments is not None:
+			segments.set("changeid", "Integreat")
+			old_body.append(segments)
 
 	outfile = os.path.join(os.getcwd(), args.output)
-	new_tree = cElementTree.ElementTree(new_root)
-	new_tree.write(outfile)
+	old_tree.write(outfile)
 
 def get_segments(old_tu):
-	bpt = True if old_tu.xpath(".//tuv/seg/bpt") else False
-
-	if not bpt:
+	bpt = old_tu.xpath("./tuv/seg/bpt")
+	if len(bpt) > 0:
+		elem = old_tu.xpath("./tuv/seg/bpt")
 		return False
+
 	new_translation = {}
-	for old_tuv in old_tu.findall(".//tuv"):
-		lang = old_tuv.attrib['{http://www.w3.org/XML/1998/namespace}lang']
-		print ("")
-		print ("--- NEW TUV ---")
-		print ("")
-		seg = old_tuv.findall(".//seg")[0]
-		print("Segment text: {}".format(seg.text))
-		for ph in seg.findall(".//ph"):
-			print("PH text: {}".format(ph.text))
-			print("PH tail: {}".format(ph.tail))
+	modified = False
+	new_tu = copy.deepcopy(old_tu)
+	for tuv in new_tu.findall("./tuv"):
+		
+		lang = tuv.attrib['{http://www.w3.org/XML/1998/namespace}lang']
+		seg = tuv.findall("./seg")[0]
+		# bad: <ph>&lt;br class="xliff-newline" /&gt;</ph>
+		start = True
+		text = ""
+		for element in seg.iter():
+			if start and element.tag == "ph":
+				if element.tail is not None and element.tail.strip() != "":
+					start = False
+					text = text + element.tail
+				element.getparent().remove(element)
+				modified = True
+			elif element.tag == "seg":
+				text = text + (element.text if element.text is not None else "")
+			elif element.tag != "ph":
+				start = False
+			else:
+				pass
+		seg.text = text
+	if modified:
+		return new_tu
+	else:
+		return False
+
 
 def parse_cli(cliargs=None):
 	import argparse
