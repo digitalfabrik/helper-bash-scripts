@@ -64,7 +64,7 @@ test_url('https://cms.integreat-app.de/testumgebung/de/wp-activate.php',
  'text/html')
  
 test_url('https://cms.integreat-app.de/wp-activate.php',
- 200,
+ 404,
  'text/html')
 
 test_url('https://cms.integreat-app.de/wp-login.php',
