@@ -29,14 +29,25 @@ def get_site_content_size(site):
         soup = BeautifulSoup(page['content'], "lxml")
         for a in soup.find_all('a', href=True):
             link = a['href']
-            if (link.startswith('https://cms.integreat-app.de/{}/'.format(site)) and
-                "/wp-content/uploads/" in link):
-                response = requests.head(link)
-                lang = page['path'].split('/')[2]
-                if "content-length" in response.headers:
-                    #print("{}; {}; {}".format(lang, link, response.headers['content-length']))
-                    total_size = total_size + int(response.headers['content-length'])
-                    lang_size[lang] = lang_size[lang] + int(response.headers['content-length'])
+            if (link.endswith(".png") or
+                link.endswith(".PNG") or
+                link.endswith(".jpg") or
+                link.endswith(".JPG") or
+                link.endswith(".jpeg") or
+                link.endswith(".JPEG") or
+                link.endswith(".pdf") or
+                link.endswith(".PDF") or
+                (link.startswith('https://cms.integreat-app.de/{}/'.format(site)) and
+                "/wp-content/uploads/" in link)):
+                try:
+                    response = requests.head(link)
+                    lang = page['path'].split('/')[2]
+                    if "content-length" in response.headers:
+                        #print("{}; {}; {}".format(lang, link, response.headers['content-length']))
+                        total_size = total_size + int(response.headers['content-length'])
+                        lang_size[lang] = lang_size[lang] + int(response.headers['content-length'])
+                except:
+                    pass
 
     for lang in lang_size:
         print("{}; {}; {} MB".format(site, lang, round(lang_size[lang]/(1024*1024), 2)))
