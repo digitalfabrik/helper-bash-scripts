@@ -1,8 +1,8 @@
 #!/bin/bash
 TARGET=""
-BACKUPDIR="/var/ig-backup"
+BACKUPDIR="/var/backup/cms-database"
 CURRENT_DATE=$(date +%Y%m%d-%H%M)
-mkdir $BACKUPDIR
+mkdir -p $BACKUPDIR
 mysqldump -u root ig_cms > ~/database.sql
 bzip2 ~/database.sql
 openssl rand -base64 32 > ~/key.bin
