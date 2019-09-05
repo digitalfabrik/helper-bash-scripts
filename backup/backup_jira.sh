@@ -1,6 +1,6 @@
 #!/bin/bash
-BACKUPDIR="/tmp/jira-backup"
 TARGET=""
+BACKUPDIR="/var/jira-backup"
 CURRENT_DATE=$(date +%Y%m%d-%H%M)
 mkdir $BACKUPDIR ~/jira/
 mysqldump -u root jiradb > ~/database.sql
@@ -17,7 +17,7 @@ rm ~/backup.tar.bz2
 rm -rf ~/jira/
 if [ -n "$TARGET" ]; then
   scp $BACKUPDIR/key-$CURRENT_DATE.bin.enc $TARGET
-  scp $BACKUPDIR/backup-$CURRENT_DATE.sql.bz2.enc $TARGET
+  scp $BACKUPDIR/backup-$CURRENT_DATE.tar.bz2.enc $TARGET
 fi
 find $BACKUPDIR/ -mtime +7 -type f -delete
 
