@@ -1,7 +1,7 @@
 #!/bin/bash
 TARGET=""
 BACKUPDIR="/var/backup/matomo"
-CURRENT_DATE=$(date +%Y%m%d-%H%M)
+CURRENT_DATE=$(date -I)
 OLD_UMASK=$(umask)
 umask 177
 mkdir -p $BACKUPDIR
