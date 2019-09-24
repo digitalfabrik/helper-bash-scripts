@@ -10,7 +10,6 @@ tar -cf - /var/www/cms/wp-content/uploads ~/database.sql | gzip -9 > ~/integreat
 openssl rand -base64 32 > ~/key.bin
 openssl enc -aes-256-cbc -salt -in ~/integreat-cms.tar.gz -out $BACKUPDIR/integreat-cms-$CURRENT_DATE.tar.gz.enc -pass file:$HOME/key.bin
 openssl rsautl -encrypt -inkey ~/backup_pubkey.pem -pubin -in ~/key.bin -out $BACKUPDIR/key-$CURRENT_DATE.bin.enc
-chmod -R 700 $BACKUPDIR
 rm ~/key.bin
 rm ~/integreat-cms.tar.gz
 rm ~/database.sql
