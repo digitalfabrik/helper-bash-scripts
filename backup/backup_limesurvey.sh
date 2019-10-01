@@ -1,6 +1,6 @@
 #!/bin/bash
 TARGET=""
-DATABASE="matomo"
+DATABASE="limesurvey"
 BACKUPDIR="/var/backup/$DATABASE"
 CURRENT_DATE=$(date -I)
 OLD_UMASK=$(umask)
