@@ -39,7 +39,8 @@ color = {
  'so': '#89fe05',
  'pl': '#bf77f6',
  'es': '#9a0eea',
- 'de-si': '#033500'
+ 'de-si': '#033500',
+ 'hr': '#06c2ac'
 }
 
 ax_title = {
@@ -60,7 +61,8 @@ ax_title = {
  'bg': 'Bulgarisch',
  'so': 'Somali',
  'pl': 'Polnisch',
- 'de-si': 'Einfaches Deutsch'
+ 'de-si': 'Einfaches Deutsch',
+ 'hr': 'Kroatisch'
 }
 
 periods_adj = {
