@@ -84,7 +84,7 @@ def get_dict(data, period):
   stats[lang]['visitors'] = []
   for date in get_date_list(period):
    key = date.strftime('%Y-%m-%d') if period == "day" else date.strftime("%Y-%m")
-   if key in data[lang] and len(data[lang][key]) > 0:
+   if key in data[lang] and len(data[lang][key]) > 0 and 'nb_actions' in data[lang][key]:
     val = data[lang][key]['nb_actions']
    else:
     val = 0
