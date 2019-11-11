@@ -98,9 +98,9 @@ def get_dates(period):
         today = datetime.datetime.strptime(args.month, "%Y-%m")
     else:
         today = datetime.date.today()
-        first = today.replace(day=1)
-        last_month_end = first - datetime.timedelta(days=1)
-        last_month_first = last_month_end.replace(day=1)
+    first = today.replace(day=1)
+    last_month_end = first - datetime.timedelta(days=1)
+    last_month_first = last_month_end.replace(day=1)
     if period == 'day':
         return (last_month_first, last_month_end)
     elif period == 'month':
