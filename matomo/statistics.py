@@ -22,7 +22,7 @@ api_key = config['DEFAULT']['api_key']
 domain = config['DEFAULT']['domain']
 
 color = {
-    'app_refreshes': '#000000',
+    'app': '#000000',
     'de': '#7e1e9c',
     'en': '#15b01a',
     'fr': '#0343df',
@@ -45,7 +45,7 @@ color = {
 }
 
 ax_title = {
-    'app_refreshes': 'Mobile App Aktualisierungen',
+    'app': 'Mobile App Aktualisierungen',
     'de': 'Deutsch',
     'en': 'Englisch',
     'es': 'Spanisch',
@@ -128,7 +128,7 @@ def fetch_data(region, period):
     domain, date_string, site_id, period, lang, api_key)
     if args.verbose:
         print(url)
-    stats["app_refreshes"] = requests.get(url).json()
+    stats["app"] = requests.get(url).json()
     return stats
 
 def plot(region, period, stats):
