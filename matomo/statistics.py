@@ -125,7 +125,7 @@ def fetch_data(region, period):
             print(url)
         stats[lang] = requests.get(url).json()
     url = "https://{}/index.php?date={}&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite={}&method=API.get&module=API&period={}&segment=referrerUrl%3D%3D&token_auth={}".format(
-    domain, date_string, site_id, period, lang, api_key)
+    domain, date_string, site_id, period, api_key)
     if args.verbose:
         print(url)
     stats["app"] = requests.get(url).json()
@@ -200,7 +200,10 @@ Folgende Daten finden Sie im Anhang:
 - Rohdaten der täglichen Aufrufe im letzten Monat (CSV)
 - Diagramm der monatlichen Aufrufe im letzten Jahr (PNG)
 - Rohdaten der monatlichen Aufrufe im letzten Jahr (CSV)
-Die Zahlen sind jeweils nach Sprache aufgeschlüsselt.
+Die Zahlen sind jeweils nach Sprache aufgeschlüsselt. Auf Anfrage können
+auch die Aktualisierungen der App angezeigt werden. Bitte beachten Sie zur
+Interpretation der App-Aktualisierungen insbesondere die unten verlinkte
+Wiki-Seite.
 
 Details zum Lesen der Statistiken finden Sie auf
 https://wiki.integreat-app.de/statistiken#statistiken_per_e-mail
