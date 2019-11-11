@@ -22,6 +22,7 @@ api_key = config['DEFAULT']['api_key']
 domain = config['DEFAULT']['domain']
 
 color = {
+    'app_refreshes': '#000000',
     'de': '#7e1e9c',
     'en': '#15b01a',
     'fr': '#0343df',
@@ -44,6 +45,7 @@ color = {
 }
 
 ax_title = {
+    'app_refreshes': 'Mobile App Aktualisierungen',
     'de': 'Deutsch',
     'en': 'Englisch',
     'es': 'Spanisch',
@@ -122,7 +124,7 @@ def fetch_data(region, period):
         if args.verbose:
             print(url)
         stats[lang] = requests.get(url).json()
-    url = "https://{}/index.php?date={}&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite={}&method=API.get&module=API&period={}&segment=pageUrl%253D@%25252F{}%25252Fwp-json%25252F&token_auth={}".format(
+    url = "https://{}/index.php?date={}&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite={}&method=API.get&module=API&period={}&segment=referrerUrl%3D%3D&token_auth={}".format(
     domain, date_string, site_id, period, lang, api_key)
     if args.verbose:
         print(url)
@@ -138,7 +140,7 @@ def plot(region, period, stats):
     mpl.use('Agg')
     import matplotlib.pyplot as plt
     plt.cla()
-    for lang in stats:
+    for lang in config[region]["languages"].split(" "):
         plt.plot(stats[lang]['dates'], stats[lang]['visitors'], marker='*', linestyle='-', markerfacecolor=color[lang], markeredgecolor=color[lang], color=color[lang], label=ax_title[lang], alpha=0.9)
     plt.title("{} Integreat API Aufrufe {} {}".format(periods_adj[period], region, month))
     plt.legend(bbox_to_anchor=(0.05, 0.95), loc=2, borderaxespad=0.)
