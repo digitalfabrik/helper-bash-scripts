@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import requests
-import json
 import datetime
 import configparser
 import tempfile
@@ -77,6 +76,7 @@ periods_deu = {
     'month': 'Jahr'
 }
 
+
 def get_dict(data, period):
     stats = {}
     for lang in data:
@@ -95,6 +95,7 @@ def get_dict(data, period):
             stats[lang]['visitors'].append(val)
     return stats
 
+
 def get_dates(period):
     if args.month:
         today = datetime.datetime.strptime(args.month, "%Y-%m")
@@ -108,6 +109,7 @@ def get_dates(period):
     elif period == 'month':
         first_month = (last_month_end - datetime.timedelta(days=364)).replace(day=1)
         return (first_month, last_month_end)
+
 
 def fetch_data(region, period):
     stats = {}
@@ -125,11 +127,12 @@ def fetch_data(region, period):
             print(url)
         stats[lang] = requests.get(url).json()
     url = "https://{}/index.php?date={}&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite={}&method=API.get&module=API&period={}&segment=referrerUrl%3D%3D&token_auth={}".format(
-    domain, date_string, site_id, period, api_key)
+        domain, date_string, site_id, period, api_key)
     if args.verbose:
         print(url)
     stats["app"] = requests.get(url).json()
     return stats
+
 
 def plot(region, period, stats):
     global month
@@ -163,10 +166,10 @@ def plot(region, period, stats):
     plt = None
     return filename
 
+
 def get_date_list(period):
     if period == 'day':
         dates = get_dates(period)
-        days = (dates[1] - dates[0]).days + 2
         day_list = [dt for dt in rrule(DAILY, dtstart=dates[0], until=dates[1])]
         return day_list
     if period == 'month':
@@ -174,9 +177,8 @@ def get_date_list(period):
         months_list = [dt for dt in rrule(MONTHLY, dtstart=dates[0], until=dates[1])]
         return months_list
 
+
 def dump_data(region, period, stats):
-    lines = {}
-    dates = get_dates(period)
     date_list = get_date_list(period)
     lang_list = list(stats)
     global month
@@ -185,11 +187,12 @@ def dump_data(region, period, stats):
         f.write("date,{}\n".format(','.join(lang_list)))
         for date in date_list:
             visits = []
-            for lang in lang_list:
+            for lang in config[region]["languages"].split(" "):
                 visits.append(str(stats[lang]['dict'][date]))
             line = "{},{}\n".format(date.strftime('%Y-%m-%d'), ','.join(visits))
             f.write(line)
     return filename
+
 
 def generate_mails(region, files):
     text = """Dies ist eine automatisch generierte E-Mail mit den aktuellen
@@ -217,6 +220,7 @@ Das Integreat-Team"""
     global month
     send_mail("keineantwort@integreat-app.de", recipients, "support@integreat-app.de", "Integreat Statistiken {}".format(month), text, files, "127.0.0.1")
 
+
 def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="127.0.0.1"):
     assert isinstance(send_to, list)
     msg = MIMEMultipart()
@@ -241,6 +245,7 @@ def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="1
     smtp.sendmail(send_from, send_to, msg.as_string())
     smtp.close()
 
+
 def main():
     global tempdir
     tempdir = tempfile.mkdtemp(prefix="ig-stats_")
@@ -257,6 +262,7 @@ def main():
             file_list.append(plot(region, period, stats))
             file_list.append(dump_data(region, period, stats))
         generate_mails(region, file_list)
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--verbose", help="increase output verbosity", action='store_true')
