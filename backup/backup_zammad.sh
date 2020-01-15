@@ -10,3 +10,4 @@ if [ -n "$TARGET" ]; then
   scp ~/key-$CURRENT_DATE.bin.enc $TARGET
   scp ~/zammad-$CURRENT_DATE.tar.enc $TARGET
 fi
+rm ~/zammad-$CURRENT_DATE.tar
