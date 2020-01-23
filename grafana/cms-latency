@@ -1,0 +1,7 @@
+#!/bin/bash
+#TIMESTAMP=$(TZ='Europe/Berlin' date +"%s")
+#echo $TIMESTAMP
+LATENCY=$(curl 'https://cms.integreat-app.de/testumgebung/de/wp-json/extensions/v3/languages' --compressed -s -o /dev/null -w  "%{time_starttransfer}")
+#echo $LATENCY
+curl -s -i --insecure -XPOST -u cms:$1 'https://server21.integreat-app.de:8086/write?db=cms' --data-binary "latency,endpoint=languages,region=testumgebung value=$LATENCY $TIMESTAMP" > /dev/null
+
