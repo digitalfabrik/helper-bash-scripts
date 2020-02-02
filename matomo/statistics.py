@@ -265,6 +265,7 @@ def main():
         generate_mails(region, file_list)
     global month
     shutil.move(tempdir, "/var/www/statistics/{}".format(month))
+    os.chmod("/var/www/statistics/{}".format(month), 0444)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--verbose", help="increase output verbosity", action='store_true')
