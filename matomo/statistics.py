@@ -6,6 +6,7 @@ import configparser
 import tempfile
 import os
 import smtplib
+import shutil
 import argparse
 from dateutil.rrule import rrule, MONTHLY, DAILY
 from os.path import basename
@@ -217,8 +218,8 @@ Das Integreat-Team"""
     recipients = ["support@integreat-app.de"]
     if args.send_all_mails:
         recipients = list(set(recipients + config[region]['email'].split(' ')))
-    global month
-    send_mail("keineantwort@integreat-app.de", recipients, "support@integreat-app.de", "Integreat Statistiken {}".format(month), text, files, "127.0.0.1")
+        global month
+        send_mail("keineantwort@integreat-app.de", recipients, "support@integreat-app.de", "Integreat Statistiken {}".format(month), text, files, "127.0.0.1")
 
 
 def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="127.0.0.1"):
@@ -262,7 +263,8 @@ def main():
             file_list.append(plot(region, period, stats))
             file_list.append(dump_data(region, period, stats))
         generate_mails(region, file_list)
-
+    global month
+    shutil.move(tempdir, "/var/www/statistics/{}".format(month))
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--verbose", help="increase output verbosity", action='store_true')
