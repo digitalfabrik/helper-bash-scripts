@@ -215,11 +215,12 @@ Bei Fragen schreiben Sie bitte an support@integreat-app.de.
 
 Mit freundlichen Grüßen,
 Das Integreat-Team"""
-    recipients = ["support@integreat-app.de"]
+    recipients = []
     if args.send_all_mails:
         recipients = list(set(recipients + config[region]['email'].split(' ')))
-        global month
-        send_mail("keineantwort@integreat-app.de", recipients, "support@integreat-app.de", "Integreat Statistiken {}".format(month), text, files, "127.0.0.1")
+        if recipients:
+            global month
+            send_mail("keineantwort@integreat-app.de", recipients, "support@integreat-app.de", "Integreat Statistiken {}".format(month), text, files, "127.0.0.1")
 
 
 def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="127.0.0.1"):
@@ -265,7 +266,7 @@ def main():
         generate_mails(region, file_list)
     global month
     shutil.move(tempdir, "/var/www/statistics/{}".format(month))
-    os.chmod("/var/www/statistics/{}".format(month), 0444)
+    os.chmod("/var/www/statistics/{}".format(month), 444)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--verbose", help="increase output verbosity", action='store_true')
