@@ -266,7 +266,7 @@ def main():
             file_list.append(plot(region, period, stats))
             file_list.append(dump_data(region, period, stats))
         generate_mails(region, file_list)
-    os.chmod("/var/www/statistics/{}".format(month), 0o744)
+    os.chmod("/var/www/statistics/{}".format(month), 0o755)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--verbose", help="increase output verbosity", action='store_true')
