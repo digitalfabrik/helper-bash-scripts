@@ -118,6 +118,8 @@ def fetch_data(region, period):
     date_string = "{},{}".format(dates[0].strftime('%Y-%m-%d'), dates[1].strftime('%Y-%m-%d'))
     global month
     month = dates[1].strftime('%Y-%m')
+    global tempdir
+    tempdir = "/var/www/statistics/{}".format(month)
     for lang in config[region]["languages"].split(" "):
         if args.verbose:
             print("Fetching data for (%s, %s)" % (region, lang))
@@ -250,7 +252,7 @@ def send_mail(send_from, send_to, reply_to, subject, text, files=None, server="1
 
 def main():
     global tempdir
-    tempdir = tempfile.mkdtemp(prefix="ig-stats_")
+    tempdir = ""
     if args.verbose:
         print("Writing to {}".format(tempdir))
     if args.region:
@@ -264,9 +266,7 @@ def main():
             file_list.append(plot(region, period, stats))
             file_list.append(dump_data(region, period, stats))
         generate_mails(region, file_list)
-    global month
-    shutil.move(tempdir, "/var/www/statistics/{}".format(month))
-    os.chmod("/var/www/statistics/{}".format(month), 444)
+    os.chmod("/var/www/statistics/{}".format(month), 0o744)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--verbose", help="increase output verbosity", action='store_true')
