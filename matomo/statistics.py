@@ -120,6 +120,10 @@ def fetch_data(region, period):
     month = dates[1].strftime('%Y-%m')
     global tempdir
     tempdir = "/var/www/statistics/{}".format(month)
+    try:
+        os.mkdir(tempdir)
+    except FileExistsError:
+        pass
     for lang in config[region]["languages"].split(" "):
         if args.verbose:
             print("Fetching data for (%s, %s)" % (region, lang))
