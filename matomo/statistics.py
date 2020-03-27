@@ -192,7 +192,7 @@ def dump_data(region, period, stats):
     lang_list = list(stats)
     global month
     filename = os.path.join(tempdir, '{}_{}_{}.csv'.format(region, month, periods_deu[period]))
-    with open(filename, "a") as f:
+    with open(filename, "w") as f:
         f.write("date,{}\n".format(','.join(config[region]["languages"].split(" "))))
         for date in date_list:
             visits = []
