@@ -46,6 +46,8 @@ def get_site_content_size(site, single=False):
             else:
                 continue
             lang = page['path'].split('/')[2]
+            if link in resources[lang]:
+                continue
             print((lang, link))
             if (link.endswith(".png") or
                 link.endswith(".PNG") or
@@ -71,7 +73,7 @@ def get_site_content_size(site, single=False):
                     lang_size_img_int[lang] = lang_size_img_int[lang] + size
                 elif(link.endswith(".png") or link.endswith(".PNG") or link.endswith(".jpg") or link.endswith(".JPG") or link.endswith(".jpeg") or link.endswith(".JPEG")):
                     lang_size_img_ext[lang] = lang_size_img_ext[lang] + size
-
+    print("City; Language; PDF internal; PDF external; Images internal; Images external")
     for lang in lang_size_pdf_int:
         print("{}; {}; {}; {}; {}; {}".format(site, lang, round(lang_size_pdf_int[lang]/(1024*1024), 2), round(lang_size_pdf_ext[lang]/(1024*1024), 2), round(lang_size_img_int[lang]/(1024*1024), 2), round(lang_size_img_ext[lang]/(1024*1024), 2)))
     
@@ -82,7 +84,6 @@ def get_site_content_size(site, single=False):
 
 if site is None:
     r = requests.get("https://cms.integreat-app.de/wp-json/extensions/v3/sites")
-    print("City; Language; PDF internal; PDF external; Images internal; Images external")
     for site in r.json():
         site = site['path'].strip("/")
         if site != "":
