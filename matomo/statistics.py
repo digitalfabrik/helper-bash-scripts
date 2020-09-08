@@ -42,7 +42,8 @@ color = {
     'es': '#9a0eea',
     'de-si': '#033500',
     'hr': '#06c2ac',
-    'it': '#c79fef'
+    'it': '#c79fef',
+    'hu': '#00035b'
 }
 
 ax_title = {
@@ -66,7 +67,8 @@ ax_title = {
     'pl': 'Polnisch',
     'de-si': 'Einfaches Deutsch',
     'hr': 'Kroatisch',
-    'it': 'Italienisch'
+    'it': 'Italienisch',
+    'hu': 'Ungarisch'
 }
 
 periods_adj = {
