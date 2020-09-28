@@ -5,13 +5,13 @@ import sys
 import hashlib
 #from __future__ import print_function
 
-SERVER="https://cms-test.integreat-app.de"
+SERVER="https://cms.integreat-app.de"
 
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
 def get_sites():
-    r = requests.get("{}/wp-json/extensions/v3/sites".format(SERVER))
+    r = requests.get("{}/wp-json/extensions/v3/sites".format(SERVER), headers={"X-Integreat-Development":"1"})
     for site in r.json():
         if site['live']:
             yield site['path'].strip("/")
@@ -21,13 +21,13 @@ def get_pages(site, languages):
     for lang in languages:
         url = "{}/{}/{}/wp-json/extensions/v3/pages".format(SERVER, site, lang)
         eprint("getting " + url)
-        r = requests.get(url)
+        r = requests.get(url, headers={"X-Integreat-Development":"1"})
         lang_pages = r.json()
         pages = pages + lang_pages
     return pages
 
 def get_languages(site):
-    r = requests.get("{}/{}/de/wp-json/extensions/v3/languages".format(SERVER, site))
+    r = requests.get("{}/{}/de/wp-json/extensions/v3/languages".format(SERVER, site), headers={"X-Integreat-Development":"1"})
     languages = r.json()
     result = []
     for lang in languages:
