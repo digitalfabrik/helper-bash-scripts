@@ -19,5 +19,5 @@ for region in regions:
     incidence = round(float(data[regions[region]["ags"]]["weekIncidence"]), 2)
     content = "<p style=\"text-align: center;\">7-Tage-Inzidenz: <strong>{}</strong> | Zuletzt aktualisiert: {}</p>".format(incidence, last_update)
     data = {"token": regions[region]["token"], "content": content}
-    url = "https://cms.integreat-app.de/"+region+"/de/wp-json/extensions/v3/pushpage"
+    url = "https://cms.integreat-app.de/"+region+"/wp-json/extensions/v3/pushpage"
     p = requests.post(url, json=data)
