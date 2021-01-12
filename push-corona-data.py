@@ -9,12 +9,68 @@ TRANSLATION = {
     "de": {
         "incidence": "7-Tage-Inzidenz",
         "update": "Zuletzt aktualisiert",
-        "info": "Die Seiten unten enthalten Informationen zu geltenden Einschränkungen bei verschiednen Inzidenz-Raten."
+        "info": "Die Seiten unten enthalten Informationen zu geltenden Einschränkungen bei verschiedenen Inzidenz-Raten."
+    },
+    "ar": {
+        "incidence": "حدوث 7 أيام",
+        "lastUpdate": "التغيير الأخير",
     },
     "en": {
         "incidence": "7 Day Incidence Rate",
         "update": "Last update",
         "info": "The pages below contain information about rules associated to incidence rates."
+    },
+    "es": {
+        "incidence": "Incidencia de 7 días",
+        "lastUpdate": "Última modificación",
+    },
+    "fa": {
+        "incidence": "بروز 7 روز",
+        "lastUpdate": "آخرین تغییرات",
+    },
+    "fr": {
+        "incidence": "Incidence sur 7 jours",
+        "lastUpdate": "Dernière modification",
+    },
+    "hr": {
+        "incidence": "7-dnevna incidencija",
+        "lastUpdate": "Zadnja promjena",
+    },
+    "ku": {
+        "incidence": "Bûyera 7-rojî",
+        "lastUpdate": "Guhertinên herî dawî",
+    },
+    "pl": {
+        "incidence": "7-dniowa częstotliwość występowania",
+        "lastUpdate": "Ostania zmiana",
+    },
+    "ps": {
+        "incidence": "بروز 7 روز",
+        "lastUpdate": "آخري تغیر",
+    },
+    "ro": {
+        "incidence": "Incidență de 7 zile",
+        "lastUpdate": "Ultima modificare",
+    },
+    "ru": {
+        "incidence": "7-дневная заболеваемость",
+        "lastUpdate": "Последнее изменение",
+    },
+    "so": {
+        "incidence": "Dhacdooyinka 7-maalin",
+        "lastUpdate": "Bedelkii ugu dambeeyay",
+    },
+    "sr": {
+        "incidence": "Стопа инциденце од 7 дана",
+        "lastUpdate": "Zadnja promena",
+    },
+    "ti": {
+        "incidence": "ናይ 7 መዓልቲ ክስተት",
+        "lastUpdate": "ናይ መወዳእታ እዋን ለውጢ፥",
+    },
+    "tr": {
+        "incidence": "7 günlük insidans",
+        "lastUpdate": "Son değişiklik",
     }
 }
 
