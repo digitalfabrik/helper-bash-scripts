@@ -1,23 +1,38 @@
 #!/usr/bin/env python3
 
 import os
+import configparser
 import dateutil.parser
 import requests
-import configparser
 
-regions = configparser.ConfigParser()
-regions.read(os.path.join(os.getenv("HOME"), ".coronainfo", 'config.ini'))
+TRANSLATION = {}
+TRANSLATION["de"]["incidence"] = "7-Tage-Inzidenz"
+TRANSLATION["de"]["update"] = "Zuletzt aktualisiert"
+TRANSLATION["en"]["incidence"] = "7 Day Incidence Rate"
+TRANSLATION["en"]["update"] = "Last update"
 
-corona_url = "https://api.corona-zahlen.org/districts"
-r = requests.get(corona_url).json()
-meta = r["meta"]
-data = r["data"]
-last_update = dateutil.parser.parse(meta["lastUpdate"]).strftime('%Y-%m-%d')
-for region in regions:
-    if region == "DEFAULT" or not regions[region]["ags"] or not regions[region]["token"]:
+REGIONS = configparser.ConfigParser()
+REGIONS.read(os.path.join(os.getenv("HOME"), ".coronainfo", 'config.ini'))
+
+CORONA_URL = "https://api.corona-zahlen.org/districts"
+RESPONSE = requests.get(CORONA_URL).json()
+LAST_UPDATE = dateutil.parser.parse(RESPONSE["meta"]["lastUpdate"]).strftime('%Y-%m-%d')
+
+def create_message(cur_region, cur_incidence):
+    language = cur_region.split("/")[1]
+    if cur_incidence > 200:
+        cur_incidence = str(cur_incidence) + "⚠️"
+    content = "<p style=\"text-align: center;\">{}: <strong>{}</strong> | {}: {}</p>".format(
+        TRANSLATION[language]["incidence"],
+        cur_incidence,
+        LAST_UPDATE,
+        TRANSLATION[language]["update"])
+    return content
+
+for region in REGIONS:
+    if region == "DEFAULT" or not REGIONS[region]["ags"] or not REGIONS[region]["token"]:
         continue
-    incidence = round(float(data[regions[region]["ags"]]["weekIncidence"]), 2)
-    content = "<p style=\"text-align: center;\">7-Tage-Inzidenz: <strong>{}</strong> | Zuletzt aktualisiert: {}</p>".format(incidence, last_update)
-    data = {"token": regions[region]["token"], "content": content}
+    incidence = round(float(RESPONSE["data"][REGIONS[region]["ags"]]["weekIncidence"]), 1)
+    request_data = {"token": REGIONS[region]["token"], "content": create_message(region, incidence)}
     url = "https://cms.integreat-app.de/"+region+"/wp-json/extensions/v3/pushpage"
-    p = requests.post(url, json=data)
+    p = requests.post(url, json=request_data)
