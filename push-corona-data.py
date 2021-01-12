@@ -5,11 +5,18 @@ import configparser
 import dateutil.parser
 import requests
 
-TRANSLATION = {}
-TRANSLATION["de"]["incidence"] = "7-Tage-Inzidenz"
-TRANSLATION["de"]["update"] = "Zuletzt aktualisiert"
-TRANSLATION["en"]["incidence"] = "7 Day Incidence Rate"
-TRANSLATION["en"]["update"] = "Last update"
+TRANSLATION = {
+    "de": {
+        "incidence": "7-Tage-Inzidenz",
+        "update": "Zuletzt aktualisiert",
+        "info": "Die Seiten unten enthalten Informationen zu geltenden Einschränkungen bei verschiednen Inzidenz-Raten."
+    },
+    "en": {
+        "incidence": "7 Day Incidence Rate",
+        "update": "Last update",
+        "info": "The pages below contain information about rules associated to incidence rates."
+    }
+}
 
 REGIONS = configparser.ConfigParser()
 REGIONS.read(os.path.join(os.getenv("HOME"), ".coronainfo", 'config.ini'))
@@ -20,13 +27,12 @@ LAST_UPDATE = dateutil.parser.parse(RESPONSE["meta"]["lastUpdate"]).strftime('%Y
 
 def create_message(cur_region, cur_incidence):
     language = cur_region.split("/")[1]
-    if cur_incidence > 200:
-        cur_incidence = str(cur_incidence) + "⚠️"
-    content = "<p style=\"text-align: center;\">{}: <strong>{}</strong> | {}: {}</p>".format(
+    content = "<p style=\"text-align: center;\" font-size: 2em;>{}: <strong>{}</strong> | {}: {}</p><br>{}".format(
         TRANSLATION[language]["incidence"],
         cur_incidence,
+        TRANSLATION[language]["update"],
         LAST_UPDATE,
-        TRANSLATION[language]["update"])
+        TRANSLATION[language["info"]])
     return content
 
 for region in REGIONS:
@@ -36,3 +42,4 @@ for region in REGIONS:
     request_data = {"token": REGIONS[region]["token"], "content": create_message(region, incidence)}
     url = "https://cms.integreat-app.de/"+region+"/wp-json/extensions/v3/pushpage"
     p = requests.post(url, json=request_data)
+    print(region + p.text)
