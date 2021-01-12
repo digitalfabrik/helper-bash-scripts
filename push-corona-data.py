@@ -27,12 +27,11 @@ LAST_UPDATE = dateutil.parser.parse(RESPONSE["meta"]["lastUpdate"]).strftime('%Y
 
 def create_message(cur_region, cur_incidence):
     language = cur_region.split("/")[1]
-    content = "<p style=\"text-align: center; font-size: 1.6em;\">{}: <strong>{}</strong> | {}: {}</p><p style=\"text-align:center;\">{}</p".format(
+    content = "<p style=\"text-align: center; font-size: 1.6em;\">{}: <strong>{}</strong> | {}: {}</p>".format(
         TRANSLATION[language]["incidence"],
         cur_incidence,
         TRANSLATION[language]["update"],
-        LAST_UPDATE,
-        TRANSLATION[language]["info"])
+        LAST_UPDATE)
     return content
 
 for region in REGIONS:
