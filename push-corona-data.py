@@ -13,64 +13,72 @@ TRANSLATION = {
     },
     "ar": {
         "incidence": "حدوث 7 أيام",
-        "lastUpdate": "التغيير الأخير",
+        "update": "التغيير الأخير",
     },
     "en": {
         "incidence": "7 Day Incidence Rate",
         "update": "Last update",
         "info": "The pages below contain information about rules associated to incidence rates."
     },
+    "el": {
+        "incidence": "Ποσοστό επίπτωσης 7 ημερών",
+        "update": "τελευταία ενημέρωση",
+    },
     "es": {
         "incidence": "Incidencia de 7 días",
-        "lastUpdate": "Última modificación",
+        "update": "Última modificación",
     },
     "fa": {
         "incidence": "بروز 7 روز",
-        "lastUpdate": "آخرین تغییرات",
+        "update": "آخرین تغییرات",
     },
     "fr": {
         "incidence": "Incidence sur 7 jours",
-        "lastUpdate": "Dernière modification",
+        "update": "Dernière modification",
     },
     "hr": {
         "incidence": "7-dnevna incidencija",
-        "lastUpdate": "Zadnja promjena",
+        "update": "Zadnja promjena",
+    },
+    "it": {
+        "incidence": "Tasso di incidenza di 7 giorni",
+        "update": "Ultimo aggiornamento",
     },
     "ku": {
         "incidence": "Bûyera 7-rojî",
-        "lastUpdate": "Guhertinên herî dawî",
+        "update": "Guhertinên herî dawî",
     },
     "pl": {
         "incidence": "7-dniowa częstotliwość występowania",
-        "lastUpdate": "Ostania zmiana",
+        "update": "Ostania zmiana",
     },
     "ps": {
         "incidence": "بروز 7 روز",
-        "lastUpdate": "آخري تغیر",
+        "update": "آخري تغیر",
     },
     "ro": {
         "incidence": "Incidență de 7 zile",
-        "lastUpdate": "Ultima modificare",
+        "update": "Ultima modificare",
     },
     "ru": {
         "incidence": "7-дневная заболеваемость",
-        "lastUpdate": "Последнее изменение",
+        "update": "Последнее изменение",
     },
     "so": {
         "incidence": "Dhacdooyinka 7-maalin",
-        "lastUpdate": "Bedelkii ugu dambeeyay",
+        "update": "Bedelkii ugu dambeeyay",
     },
     "sr": {
         "incidence": "Стопа инциденце од 7 дана",
-        "lastUpdate": "Zadnja promena",
+        "update": "Zadnja promena",
     },
     "ti": {
         "incidence": "ናይ 7 መዓልቲ ክስተት",
-        "lastUpdate": "ናይ መወዳእታ እዋን ለውጢ፥",
+        "update": "ናይ መወዳእታ እዋን ለውጢ፥",
     },
     "tr": {
         "incidence": "7 günlük insidans",
-        "lastUpdate": "Son değişiklik",
+        "update": "Son değişiklik",
     }
 }
 
