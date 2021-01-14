@@ -14,6 +14,11 @@ TRANSLATION = {
         "update": "Zuletzt aktualisiert",
         "info": "Die Seiten unten enthalten Informationen zu geltenden Einschränkungen bei verschiedenen Inzidenz-Raten."
     },
+    "de-si": {
+        "incidence": "7-Tage-Inzidenz",
+        "update": "Zuletzt aktualisiert",
+        "info": "Die Seiten unten enthalten Informationen zu geltenden Einschränkungen bei verschiedenen Inzidenz-Raten."
+    },
     "ar": {
         "incidence": "حدوث 7 أيام",
         "update": "التغيير الأخير",
