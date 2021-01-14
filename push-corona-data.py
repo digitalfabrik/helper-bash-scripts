@@ -2,8 +2,11 @@
 
 import os
 import configparser
-import dateutil.parser
+import datetime
 import requests
+import dateutil.parser
+import pandas as pd
+from openpyxl import load_workbook
 
 TRANSLATION = {
     "de": {
@@ -85,9 +88,32 @@ TRANSLATION = {
 REGIONS = configparser.ConfigParser()
 REGIONS.read(os.path.join(os.getenv("HOME"), ".coronainfo", 'config.ini'))
 
-CORONA_URL = "https://api.corona-zahlen.org/districts"
-RESPONSE = requests.get(CORONA_URL).json()
-LAST_UPDATE = dateutil.parser.parse(RESPONSE["meta"]["lastUpdate"]).strftime('%Y-%m-%d')
+def parse_rki_xlsx():
+    CORONA_URL = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Fallzahlen_Kum_Tab.xlsx?__blob=publicationFile"
+    RESPONSE = requests.get(CORONA_URL, allow_redirects=True)
+    open('data.xlsx', 'wb').write(RESPONSE.content)
+    workbook = load_workbook(filename = 'data.xlsx')
+    worksheet = workbook["7Tage_LK"]
+    LAST_UPDATE = datetime.datetime.strptime(worksheet["A2"].value, 'Stand: %d.%m.%Y %H:%M:%S').strftime('%Y-%m-%d')
+    DATA = {}
+    for row in range(1, 450):
+        if worksheet["D"+str(row)].value and worksheet["D"+str(row)].value != "Inzidenz":
+            DATA[worksheet["B"+str(row)].value] = worksheet["D"+str(row)].value
+    return LAST_UPDATE, DATA
+
+def parse_corona_zahlen():
+    CORONA_URL = "https://api.corona-zahlen.org/districts"
+    RESPONSE = requests.get(CORONA_URL).json()
+    LAST_UPDATE = dateutil.parser.parse(RESPONSE["meta"]["lastUpdate"]).strftime('%Y-%m-%d')
+    DATA = {}
+    for region in RESPONSE["data"]:
+        DATA[region] = RESPONSE["data"][region]["ags"]
+    return LAST_UPDATE, DATA
+
+try:
+    LAST_UPDATE, DATA = parse_rki_xlsx()
+except:
+    LAST_UPDATE, DATA = parse_corona_zahlen()
 
 def create_message(cur_region, cur_incidence):
     language = cur_region.split("/")[1]
@@ -101,7 +127,7 @@ def create_message(cur_region, cur_incidence):
 for region in REGIONS:
     if region == "DEFAULT" or not REGIONS[region]["ags"] or not REGIONS[region]["token"]:
         continue
-    incidence = round(float(RESPONSE["data"][REGIONS[region]["ags"]]["weekIncidence"]), 1)
+    incidence = round(DATA[REGIONS[region]["ags"]], 1)
     request_data = {"token": REGIONS[region]["token"], "content": create_message(region, incidence)}
     url = "https://cms.integreat-app.de/"+region+"/wp-json/extensions/v3/pushpage"
     p = requests.post(url, json=request_data)
