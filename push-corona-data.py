@@ -117,8 +117,10 @@ def parse_corona_zahlen():
 
 try:
     LAST_UPDATE, DATA = parse_rki_xlsx()
+    print("Using official RKI data.")
 except:
     LAST_UPDATE, DATA = parse_corona_zahlen()
+    pritn("Use secondary source.")
 
 def create_message(cur_region, cur_incidence):
     language = cur_region.split("/")[1]
