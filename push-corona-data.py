@@ -23,6 +23,10 @@ TRANSLATION = {
         "incidence": "حدوث 7 أيام",
         "update": "التغيير الأخير",
     },
+    "bu": {
+        "incidence": "Честота на инцидентите за 7 дни",
+        "update": "Последна актуализация"
+    },
     "en": {
         "incidence": "7 Day Incidence Rate",
         "update": "Last update",
