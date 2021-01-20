@@ -52,6 +52,10 @@ TRANSLATION = {
         "incidence": "7-dnevna incidencija",
         "update": "Zadnja promjena",
     },
+    "hu": {
+        "incidence": "7 napos előfordulási arány",
+        "update": "Utolsó frissítés"
+    },
     "it": {
         "incidence": "Tasso di incidenza di 7 giorni",
         "update": "Ultimo aggiornamento",
