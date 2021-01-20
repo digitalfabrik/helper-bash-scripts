@@ -100,8 +100,9 @@ REGIONS.read(os.path.join(os.getenv("HOME"), ".coronainfo", 'config.ini'))
 def parse_rki_xlsx():
     CORONA_URL = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Fallzahlen_Kum_Tab.xlsx?__blob=publicationFile"
     RESPONSE = requests.get(CORONA_URL, allow_redirects=True)
-    open('data.xlsx', 'wb').write(RESPONSE.content)
-    workbook = load_workbook(filename = 'data.xlsx')
+    XLSX_PATH = "rki-archive/{}.xlsx".format(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M"))
+    open(XLSX_PATH, 'wb').write(RESPONSE.content)
+    workbook = load_workbook(filename = XLSX_PATH)
     worksheet = workbook["7Tage_LK"]
     LAST_UPDATE = datetime.datetime.strptime(worksheet["A2"].value, 'Stand: %d.%m.%Y %H:%M:%S').strftime('%Y-%m-%d')
     DATA = {}
