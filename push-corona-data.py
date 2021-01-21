@@ -19,6 +19,10 @@ TRANSLATION = {
         "update": "Zuletzt aktualisiert",
         "info": "Die Seiten unten enthalten Informationen zu geltenden Einschränkungen bei verschiedenen Inzidenz-Raten."
     },
+    "am": {
+        "incidence": "7 ቀን የመያዝ መጠን",
+        "update": "የመጨረሻው ዝመና"
+    },
     "ar": {
         "incidence": "حدوث 7 أيام",
         "update": "التغيير الأخير",
