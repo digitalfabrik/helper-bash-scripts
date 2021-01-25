@@ -154,6 +154,6 @@ for region in REGIONS:
     if message is None:
         continue
     request_data = {"token": REGIONS[region]["token"], "content": message}
-    url = "https://cms.integreat-app.de/"+region+"/wp-json/extensions/v3/pushpage"
+    url = "https://cms.integreat-app.de/"+(REGIONS[region]["address"] if "address" in REGIONS[region] else region)+"/wp-json/extensions/v3/pushpage"
     p = requests.post(url, json=request_data)
     print(region + p.text)
