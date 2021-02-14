@@ -158,10 +158,10 @@ for region in REGIONS:
         request_data = {"token": REGIONS[region]["token"], "content": message}
         url = "https://cms.integreat-app.de/"+(REGIONS[region]["address"] if "address" in REGIONS[region] else region)+"/wp-json/extensions/v3/pushpage"
         p = requests.post(url, json=request_data)
+        print(region + p.text)
         url_string = 'https://monitoring.tuerantuer.org/write?db=cms'
         data_string = 'corona,host=server12,status=success,target={} value={} {}'.format(region, 1 if p.json()["status"]=="success" else 0, str(time.time()).split(".")[0]+"000000000")
         r = requests.post(url_string, data=data_string, cert=('/etc/pki/client.crt', '/etc/pki/client.key'), verify="/usr/local/share/ca-certificates/ca.crt")
-        print(region + p.text)
     except:
         try:
             data_string = 'corona,host=server12,status=success,target={} value={} {}'.format(region, 0, str(time.time()).split(".")[0]+"000000000")
