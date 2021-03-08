@@ -106,6 +106,16 @@ TRANSLATION = {
 REGIONS = configparser.ConfigParser()
 REGIONS.read(os.path.join(os.getenv("HOME"), ".coronainfo", 'config.ini'))
 
+def parse_arcgis():
+    CORONA_URL = "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/RKI_Landkreisdaten/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=false&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&returnZ=false&returnM=false&returnExceededLimitFeatures=true&f=pjson"
+    RESPONSE = requests.get(CORONA_URL).json()["features"]
+    DATA = {}
+    for region in RESPONSE:
+        ags = region["attributes"]["AGS"]
+        LAST_UPDATE = datetime.datetime.strptime(region["attributes"]["last_update"], '%d.%m.%Y, %H:%M Uhr').strftime('%Y-%m-%d')
+        DATA[ags] = region["attributes"]["cases7_per_100k"]
+    return LAST_UPDATE, DATA
+
 def parse_rki_xlsx():
     CORONA_URL = "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Fallzahlen_Kum_Tab.xlsx?__blob=publicationFile"
     RESPONSE = requests.get(CORONA_URL, allow_redirects=True)
@@ -120,21 +130,12 @@ def parse_rki_xlsx():
             DATA[worksheet["B"+str(row)].value] = worksheet["D"+str(row)].value
     return LAST_UPDATE, DATA
 
-def parse_corona_zahlen():
-    CORONA_URL = "https://api.corona-zahlen.org/districts"
-    RESPONSE = requests.get(CORONA_URL).json()
-    LAST_UPDATE = dateutil.parser.parse(RESPONSE["meta"]["lastUpdate"]).strftime('%Y-%m-%d')
-    DATA = {}
-    for region in RESPONSE["data"]:
-        DATA[region] = RESPONSE["data"][region]["ags"]
-    return LAST_UPDATE, DATA
-
 try:
-    LAST_UPDATE, DATA = parse_rki_xlsx()
-    print("Using official RKI data.")
+    LAST_UPDATE, DATA = parse_arcgis()
+    print("Using Arcgis")
 except:
-    LAST_UPDATE, DATA = parse_corona_zahlen()
-    print("Use secondary source.")
+    LAST_UPDATE, DATA = parse_rki_xlsx()
+    print("Using RKI Excel")
 
 def create_message(cur_region, cur_incidence):
     language = cur_region.split("/")[1]
