@@ -44,7 +44,8 @@ color = {
     'hr': '#06c2ac',
     'it': '#c79fef',
     'hu': '#00035b',
-    'el': '#d1b26f'
+    'el': '#d1b26f',
+    'ps': '#00ffff'
 }
 
 ax_title = {
@@ -70,7 +71,8 @@ ax_title = {
     'hr': 'Kroatisch',
     'it': 'Italienisch',
     'hu': 'Ungarisch',
-    'el': 'Griechisch'
+    'el': 'Griechisch',
+    'ps': 'Paschto'
 }
 
 periods_adj = {
