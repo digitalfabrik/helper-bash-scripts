@@ -12,94 +12,94 @@ from openpyxl import load_workbook
 TRANSLATION = {
     "de": {
         "incidence": "7-Tage-Inzidenz",
-        "update": "Zuletzt aktualisiert",
+        "update": "am",
         "info": "Die Seiten unten enthalten Informationen zu geltenden Einschränkungen bei verschiedenen Inzidenz-Raten."
     },
     "de-si": {
         "incidence": "7-Tage-Inzidenz",
-        "update": "Zuletzt aktualisiert",
+        "update": "am",
         "info": "Die Seiten unten enthalten Informationen zu geltenden Einschränkungen bei verschiedenen Inzidenz-Raten."
     },
     "am": {
         "incidence": "7 ቀን የመያዝ መጠን",
-        "update": "የመጨረሻው ዝመና"
+        "update": "መጋቢት"
     },
     "ar": {
         "incidence": "حدوث 7 أيام",
-        "update": "التغيير الأخير",
+        "update": "في",
     },
     "bg": {
         "incidence": "Честота на инцидентите за 7 дни",
-        "update": "Последна актуализация"
+        "update": "на"
     },
     "en": {
         "incidence": "7 Day Incidence Rate",
-        "update": "Last update",
+        "update": "on",
         "info": "The pages below contain information about rules associated to incidence rates."
     },
     "el": {
         "incidence": "Ποσοστό επίπτωσης 7 ημερών",
-        "update": "τελευταία ενημέρωση",
+        "update": "στις",
     },
     "es": {
         "incidence": "Incidencia de 7 días",
-        "update": "Última modificación",
+        "update": "el",
     },
     "fa": {
         "incidence": "بروز 7 روز",
-        "update": "آخرین تغییرات",
+        "update": "در",
     },
     "fr": {
         "incidence": "Incidence sur 7 jours",
-        "update": "Dernière modification",
+        "update": "le",
     },
     "hr": {
         "incidence": "7-dnevna incidencija",
-        "update": "Zadnja promjena",
+        "update": "na",
     },
     "hu": {
         "incidence": "7 napos előfordulási arány",
-        "update": "Utolsó frissítés"
+        "update": ""
     },
     "it": {
         "incidence": "Tasso di incidenza di 7 giorni",
-        "update": "Ultimo aggiornamento",
+        "update": "il",
     },
     "ku": {
         "incidence": "Bûyera 7-rojî",
-        "update": "Guhertinên herî dawî",
+        "update": "di",
     },
     "pl": {
         "incidence": "7-dniowa częstotliwość występowania",
-        "update": "Ostania zmiana",
+        "update": "w dniu",
     },
     "ps": {
         "incidence": "بروز 7 روز",
-        "update": "آخري تغیر",
+        "update": "در",
     },
     "ro": {
         "incidence": "Incidență de 7 zile",
-        "update": "Ultima modificare",
+        "update": "la",
     },
     "ru": {
         "incidence": "7-дневная заболеваемость",
-        "update": "Последнее изменение",
+        "update": "",
     },
     "so": {
         "incidence": "Dhacdooyinka 7-maalin",
-        "update": "Bedelkii ugu dambeeyay",
+        "update": "markay ahayd",
     },
     "sr": {
         "incidence": "Стопа инциденце од 7 дана",
-        "update": "Zadnja promena",
+        "update": "",
     },
     "ti": {
         "incidence": "ናይ 7 መዓልቲ ክስተት",
-        "update": "ናይ መወዳእታ እዋን ለውጢ፥",
+        "update": "on",
     },
     "tr": {
         "incidence": "7 günlük insidans",
-        "update": "Son değişiklik",
+        "update": ",",
     }
 }
 
@@ -141,7 +141,7 @@ def create_message(cur_region, cur_incidence):
     language = cur_region.split("/")[1]
     if language not in TRANSLATION:
         return None
-    content = "<p style=\"text-align: center; font-size: 1.6em;\">{}: <strong>{}</strong> | {}: {}</p>".format(
+    content = "<p style=\"text-align: center; font-size: 1.6em;\">{}: <strong>{}</strong> {} {}</p>".format(
         TRANSLATION[language]["incidence"],
         cur_incidence,
         TRANSLATION[language]["update"],
