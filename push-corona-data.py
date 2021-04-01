@@ -13,93 +13,115 @@ TRANSLATION = {
     "de": {
         "incidence": "7-Tage-Inzidenz",
         "update": "am",
-        "info": "Die Seiten unten enthalten Informationen zu geltenden Einschränkungen bei verschiedenen Inzidenz-Raten."
+        "info": "Die Seiten unten enthalten Informationen zu geltenden Einschränkungen bei verschiedenen Inzidenz-Raten.",
+        "refresh": "Zum Aktualisieren nach unten ziehen.",
     },
     "de-si": {
         "incidence": "7-Tage-Inzidenz",
         "update": "am",
-        "info": "Die Seiten unten enthalten Informationen zu geltenden Einschränkungen bei verschiedenen Inzidenz-Raten."
+        "info": "Die Seiten unten enthalten Informationen zu geltenden Einschränkungen bei verschiedenen Inzidenz-Raten.",
+        "refresh": "Zum Aktualisieren nach unten ziehen.",
     },
     "am": {
         "incidence": "7 ቀን የመያዝ መጠን",
-        "update": "መጋቢት"
+        "update": "መጋቢት",
+        "refresh": "ለማደስ ወደ ታች ይጎትቱ።",
     },
     "ar": {
         "incidence": "حدوث 7 أيام",
         "update": "في",
+        "refresh": "للتحديث اسحب للأسفل.",
     },
     "bg": {
         "incidence": "Честота на инцидентите за 7 дни",
-        "update": "на"
+        "update": "на",
+        "refresh": "Издърпайте надолу, за да опресните.",
     },
     "en": {
         "incidence": "7 Day Incidence Rate",
         "update": "on",
-        "info": "The pages below contain information about rules associated to incidence rates."
+        "info": "The pages below contain information about rules associated to incidence rates.",
+        "refresh": "Pull down to refresh.",
     },
     "el": {
         "incidence": "Ποσοστό επίπτωσης 7 ημερών",
         "update": "στις",
+        "refresh": "Τραβήξτε προς τα κάτω για ανανέωση.",
     },
     "es": {
         "incidence": "Incidencia de 7 días",
         "update": "el",
+        "refresh": "Tire hacia abajo para refrescar.",
     },
     "fa": {
         "incidence": "بروز 7 روز",
         "update": "در",
+        "refresh": "برای تازه کردن به پایین بکشید.",
     },
     "fr": {
         "incidence": "Incidence sur 7 jours",
         "update": "le",
+        "refresh": "Tirez vers le bas pour rafraîchir.",
     },
     "hr": {
         "incidence": "7-dnevna incidencija",
         "update": "na",
+        "refresh": "Povucite dolje da se osvježite.",
     },
     "hu": {
         "incidence": "7 napos előfordulási arány",
-        "update": ""
+        "update": "",
+        "refresh": "Húzza le a frissítéshez.",
     },
     "it": {
         "incidence": "Tasso di incidenza di 7 giorni",
         "update": "il",
+        "refresh": "Trascina verso il basso per aggiornare.",
     },
     "ku": {
         "incidence": "Bûyera 7-rojî",
         "update": "di",
+        "refresh": "Ji bo nûvekêşanê dakêşin.",
     },
     "pl": {
         "incidence": "7-dniowa częstotliwość występowania",
         "update": "w dniu",
+        "refresh": "Pociągnij w dół, aby odświeżyć.",
     },
     "ps": {
         "incidence": "بروز 7 روز",
         "update": "در",
+        "refresh": "د تازه کولو لپاره کښته کیږئ.",
     },
     "ro": {
         "incidence": "Incidență de 7 zile",
         "update": "la",
+        "refresh": "Trageți în jos pentru a reîmprospăta.",
     },
     "ru": {
         "incidence": "7-дневная заболеваемость",
         "update": "",
+        "refresh": "Потяните вниз, чтобы обновить.",
     },
     "so": {
         "incidence": "Dhacdooyinka 7-maalin",
         "update": "markay ahayd",
+        "refresh": "Hoos u jiid si aad uhesho.",
     },
     "sr": {
         "incidence": "Стопа инциденце од 7 дана",
         "update": "",
+        "refresh": "Повуците доле да освежите.",
     },
     "ti": {
         "incidence": "ናይ 7 መዓልቲ ክስተት",
         "update": "on",
+        "refresh": "ዕረፍቲ ንምርካብ ስጕምቲ ውሰዱ።",
     },
     "tr": {
         "incidence": "7 günlük insidans",
         "update": ",",
+        "refresh": "Yenilemek için aşağıya çekin.",
     }
 }
 
@@ -141,11 +163,12 @@ def create_message(cur_region, cur_incidence):
     language = cur_region.split("/")[1]
     if language not in TRANSLATION:
         return None
-    content = "<p style=\"text-align: center; font-size: 1.6em;\">{}: <strong>{}</strong> {} {}</p>".format(
+    content = "<p style=\"text-align: center; font-size: 1.6em;\">{}: <strong>{}</strong> {} {}</p><p>{}</p>".format(
         TRANSLATION[language]["incidence"],
         cur_incidence,
         TRANSLATION[language]["update"],
-        LAST_UPDATE)
+        LAST_UPDATE,
+        TRANSLATION[language]["refresh"])
     return content
 
 for region in REGIONS:
