@@ -45,7 +45,8 @@ color = {
     'it': '#c79fef',
     'hu': '#00035b',
     'el': '#d1b26f',
-    'ps': '#00ffff'
+    'ps': '#00ffff',
+    'kmr': '#13eac9'
 }
 
 ax_title = {
@@ -72,7 +73,8 @@ ax_title = {
     'it': 'Italienisch',
     'hu': 'Ungarisch',
     'el': 'Griechisch',
-    'ps': 'Paschto'
+    'ps': 'Paschto',
+    'kmr': 'Kurmandschi'
 }
 
 periods_adj = {
