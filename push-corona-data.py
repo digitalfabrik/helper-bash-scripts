@@ -25,17 +25,22 @@ TRANSLATION = {
     "am": {
         "incidence": "7 ቀን የመያዝ መጠን",
         "update": "መጋቢት",
-        "refresh": "ለማደስ ወደ ታች ይጎትቱ።",
+        "refresh": "ሪፍረሽ ለማድረግ/ለማደስ ወደ ታች ይጎትቱ።",
     },
     "ar": {
         "incidence": "حدوث 7 أيام",
         "update": "في",
-        "refresh": "للتحديث اسحب للأسفل.",
+        "refresh": "للتحديث اسحب إلى أسفل.",
     },
     "bg": {
         "incidence": "Честота на инцидентите за 7 дни",
         "update": "на",
-        "refresh": "Издърпайте надолу, за да опресните.",
+        "refresh": "Плъзнете надолу за опресняване.",
+    },
+    "cbk": {
+        "incidence": "",
+        "update": "",
+        "refresh": "بۆ بەڕۆژکردنەوە بۆ لای خوارەوەی دابکێشە."
     },
     "en": {
         "incidence": "7 Day Incidence Rate",
@@ -46,12 +51,12 @@ TRANSLATION = {
     "el": {
         "incidence": "Ποσοστό επίπτωσης 7 ημερών",
         "update": "στις",
-        "refresh": "Τραβήξτε προς τα κάτω για ανανέωση.",
+        "refresh": "Σύρετε προς τα κάτω για ανανέωση περιεχομένου.",
     },
     "es": {
         "incidence": "Incidencia de 7 días",
         "update": "el",
-        "refresh": "Tire hacia abajo para refrescar.",
+        "refresh": "Deslice hacia abajo para actualizar.",
     },
     "fa": {
         "incidence": "بروز 7 روز",
@@ -61,32 +66,52 @@ TRANSLATION = {
     "fr": {
         "incidence": "Incidence sur 7 jours",
         "update": "le",
-        "refresh": "Tirez vers le bas pour rafraîchir.",
+        "refresh": "Tirer vers le bas pour actualiser.",
     },
     "hr": {
         "incidence": "7-dnevna incidencija",
         "update": "na",
-        "refresh": "Povucite dolje da se osvježite.",
+        "refresh": "Da biste ažurirali, povucite prstom prema dolje.",
     },
     "hu": {
         "incidence": "7 napos előfordulási arány",
         "update": "",
-        "refresh": "Húzza le a frissítéshez.",
+        "refresh": "Az aktualizáláshoz húzza le.",
     },
     "it": {
         "incidence": "Tasso di incidenza di 7 giorni",
         "update": "il",
         "refresh": "Trascina verso il basso per aggiornare.",
     },
+    "ka": {
+        "incidence": "",
+        "update": "",
+        "refresh": "აქტუალიზირებისათვის ჩამოფურცლეთ ქვემოთ."
+    },
+    "kmr": {
+        "incidence": "",
+        "update": "",
+        "refresh": "Jibo nûkirinê bikişîne xwarê."
+    },
     "ku": {
         "incidence": "Bûyera 7-rojî",
         "update": "di",
         "refresh": "Ji bo nûvekêşanê dakêşin.",
     },
+    "mk": {
+        "incidence": "",
+        "update": "",
+        "refresh": "За ажурирање повлечете надолу."
+    },
+    "pes": {
+        "incidence": "",
+        "update": "",
+        "refresh": "برای به روز رسانی به پایین بکشید."
+    },
     "pl": {
         "incidence": "7-dniowa częstotliwość występowania",
         "update": "w dniu",
-        "refresh": "Pociągnij w dół, aby odświeżyć.",
+        "refresh": "Aby zaktualizować, przeciągnij w dół.",
     },
     "ps": {
         "incidence": "بروز 7 روز",
@@ -96,22 +121,27 @@ TRANSLATION = {
     "ro": {
         "incidence": "Incidență de 7 zile",
         "update": "la",
-        "refresh": "Trageți în jos pentru a reîmprospăta.",
+        "refresh": "Pentru actualizare, trageți în jos.",
     },
     "ru": {
         "incidence": "7-дневная заболеваемость",
         "update": "",
-        "refresh": "Потяните вниз, чтобы обновить.",
+        "refresh": "Для обновления проведите вниз.",
     },
     "so": {
         "incidence": "Dhacdooyinka 7-maalin",
         "update": "markay ahayd",
-        "refresh": "Hoos u jiid si aad uhesho.",
+        "refresh": "Hoos u jiid si aad u nasato.",
+    },
+    "sq": {
+        "incidence": "",
+        "update": "",
+        "refresh": "Tërhiqeni për ta rifreskuar."
     },
     "sr": {
         "incidence": "Стопа инциденце од 7 дана",
         "update": "",
-        "refresh": "Повуците доле да освежите.",
+        "refresh": "За ажурирање превући надоле.",
     },
     "ti": {
         "incidence": "ናይ 7 መዓልቲ ክስተት",
