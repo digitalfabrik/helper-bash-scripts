@@ -143,6 +143,11 @@ TRANSLATION = {
         "update": "",
         "refresh": "За ажурирање превући надоле.",
     },
+    "sr-Latn": {
+        "incidence": "Stopa incidencije od 7 dana",
+        "update": "",
+        "refresh": "Za ažuriranje prevući nadole."
+    },
     "ti": {
         "incidence": "ናይ 7 መዓልቲ ክስተት",
         "update": "on",
