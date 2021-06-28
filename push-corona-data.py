@@ -144,7 +144,7 @@ TRANSLATION = {
         "refresh": "За ажурирање превући надоле.",
     },
     "sr-Latn": {
-        "incidence": "Stopa incidencije od 7 dana",
+        "incidence": "7-dnevna incidenca",
         "update": "",
         "refresh": "Za ažuriranje prevući nadole."
     },
