@@ -37,8 +37,8 @@ TRANSLATION = {
         "update": "на",
         "refresh": "Плъзнете надолу за опресняване.",
     },
-    "cbk": {
-        "incidence": "",
+    "ckb": {
+        "incidence": "7 ڕۆژ ڕێژەی ڕوودانی",
         "update": "",
         "refresh": "بۆ بەڕۆژکردنەوە بۆ لای خوارەوەی دابکێشە."
     },
@@ -89,7 +89,7 @@ TRANSLATION = {
         "refresh": "აქტუალიზირებისათვის ჩამოფურცლეთ ქვემოთ."
     },
     "kmr": {
-        "incidence": "",
+        "incidence": "Rêjeya bûyerên 7 rojan",
         "update": "",
         "refresh": "Jibo nûkirinê bikişîne xwarê."
     },
