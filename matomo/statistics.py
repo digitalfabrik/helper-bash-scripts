@@ -49,7 +49,8 @@ color = {
     'kmr': '#13eac9',
     'sr-Latn': '#06470c',
     'ur': '#ae7181',
-    'ka': '#35063e'
+    'ka': '#35063e',
+    'ckb': '#01ff07'
 }
 
 ax_title = {
@@ -80,7 +81,8 @@ ax_title = {
     'kmr': 'Kurmandschi',
     'sr-Latn': 'Serbisch (Latein)',
     'ur': 'Urdu',
-    'ka': 'Georgisch'
+    'ka': 'Georgisch',
+    'ckb': 'Sorani'
 }
 
 periods_adj = {
