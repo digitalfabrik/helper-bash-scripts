@@ -169,8 +169,10 @@ def parse_arcgis():
     DATA = {}
     for region in RESPONSE:
         ags = region["attributes"]["AGS"]
-        LAST_UPDATE = datetime.datetime.strptime(region["attributes"]["last_update"], '%d.%m.%Y, %H:%M Uhr').strftime('%Y-%m-%d')
         DATA[ags] = region["attributes"]["cases7_per_100k"]
+        if "last_update" not in region["attributes"]:
+            continue
+        LAST_UPDATE = datetime.datetime.strptime(region["attributes"]["last_update"], '%d.%m.%Y, %H:%M Uhr').strftime('%Y-%m-%d')
     return LAST_UPDATE, DATA
 
 def parse_rki_xlsx():
