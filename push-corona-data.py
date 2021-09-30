@@ -170,7 +170,7 @@ def parse_arcgis():
     for region in RESPONSE:
         ags = region["attributes"]["AGS"]
         DATA[ags] = region["attributes"]["cases7_per_100k"]
-        if "last_update" not in region["attributes"]:
+        if "last_update" not in region["attributes"] or region["attributes"]["last_update"] == "":
             continue
         LAST_UPDATE = datetime.datetime.strptime(region["attributes"]["last_update"], '%d.%m.%Y, %H:%M Uhr').strftime('%Y-%m-%d')
     return LAST_UPDATE, DATA
