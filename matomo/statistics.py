@@ -54,7 +54,7 @@ color = {
 }
 
 ax_title = {
-    'app': 'Mobile App Aktualisierungen',
+    'app': 'Offline Downloads',
     'de': 'Deutsch',
     'en': 'Englisch',
     'es': 'Spanisch',
