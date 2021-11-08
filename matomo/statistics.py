@@ -51,7 +51,8 @@ color = {
     'ur': '#ae7181',
     'ka': '#35063e',
     'ckb': '#01ff07',
-    'mk': '#650021'
+    'mk': '#650021',
+    'zh-CN': '#6e750e'
 }
 
 ax_title = {
@@ -84,7 +85,8 @@ ax_title = {
     'ur': 'Urdu',
     'ka': 'Georgisch',
     'ckb': 'Sorani',
-    'mk': 'Mazedonisch'
+    'mk': 'Mazedonisch',
+    'zh-CN': 'Chinesisch'
 }
 
 periods_adj = {
