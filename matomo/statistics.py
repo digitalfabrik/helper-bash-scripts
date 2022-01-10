@@ -22,7 +22,7 @@ api_key = config['DEFAULT']['api_key']
 domain = config['DEFAULT']['domain']
 
 color = {
-    'app': '#000000',
+    'offline-downloads': '#000000',
     'de': '#7e1e9c',
     'en': '#15b01a',
     'fr': '#0343df',
@@ -56,7 +56,7 @@ color = {
 }
 
 ax_title = {
-    'app': 'Offline Downloads',
+    'offline-downloads': 'Offline Downloads',
     'de': 'Deutsch',
     'en': 'Englisch',
     'es': 'Spanisch',
@@ -159,7 +159,7 @@ def fetch_data(region, period):
         domain, date_string, site_id, period, api_key)
     if args.verbose:
         print(url)
-    stats["app"] = requests.get(url).json()
+    stats["offline-downloads"] = requests.get(url).json()
     return stats
 
 
