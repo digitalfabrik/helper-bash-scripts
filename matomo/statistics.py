@@ -52,7 +52,11 @@ color = {
     'ka': '#35063e',
     'ckb': '#01ff07',
     'mk': '#650021',
-    'zh-CN': '#6e750e'
+    'zh-CN': '#6e750e',
+    'ka': '#ff796c',
+    'prs': '#e6daa6',
+    'sq': '#0504aa'
+
 }
 
 ax_title = {
@@ -86,7 +90,10 @@ ax_title = {
     'ka': 'Georgisch',
     'ckb': 'Sorani',
     'mk': 'Mazedonisch',
-    'zh-CN': 'Chinesisch'
+    'zh-CN': 'Chinesisch',
+    'ka': 'Georgisch',
+    'prs': 'Dari',
+    'sq': 'Albanisch'
 }
 
 periods_adj = {
