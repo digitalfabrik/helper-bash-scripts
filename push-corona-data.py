@@ -157,6 +157,11 @@ TRANSLATION = {
         "incidence": "7 günlük insidans",
         "update": ",",
         "refresh": "Yenilemek için aşağıya çekin.",
+    },
+    "uk": {
+        "incidence": "7-денна захворюваність",
+        "update": ",",
+        "refresh": "Перетягніть вниз, щоб оновити.",
     }
 }
 
