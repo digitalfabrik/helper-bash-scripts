@@ -94,7 +94,7 @@ ax_title = {
     'ka': 'Georgisch',
     'prs': 'Dari',
     'sq': 'Albanisch',
-    'uk', 'Ukraininisch'
+    'uk': 'Ukraininisch'
 }
 
 periods_adj = {
