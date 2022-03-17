@@ -55,8 +55,8 @@ color = {
     'zh-CN': '#6e750e',
     'ka': '#ff796c',
     'prs': '#e6daa6',
-    'sq': '#0504aa'
-
+    'sq': '#0504aa',
+    'uk', '#001146'
 }
 
 ax_title = {
@@ -93,7 +93,8 @@ ax_title = {
     'zh-CN': 'Chinesisch',
     'ka': 'Georgisch',
     'prs': 'Dari',
-    'sq': 'Albanisch'
+    'sq': 'Albanisch',
+    'uk', 'Ukraininisch'
 }
 
 periods_adj = {
