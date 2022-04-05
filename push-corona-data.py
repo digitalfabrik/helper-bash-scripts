@@ -148,6 +148,11 @@ TRANSLATION = {
         "update": "",
         "refresh": "Za ažuriranje prevući nadole."
     },
+    "sr-latn": {
+        "incidence": "7-dnevna incidenca",
+        "update": "",
+        "refresh": "Za ažuriranje prevući nadole."
+    },
     "ti": {
         "incidence": "ናይ 7 መዓልቲ ክስተት",
         "update": "on",
