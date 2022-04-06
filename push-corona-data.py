@@ -219,6 +219,10 @@ def create_message(cur_region, cur_incidence):
     return content
 
 for region in REGIONS:
+    mon_url = 'https://monitoring.tuerantuer.org/write?db=cms'
+    if "token" not in REGIONS[region] or "ags" not in REGIONS[region]:
+            data_string = 'corona,host=server12,status=success,target={} value={} {}'.format(region, 0, str(time.time()).split(".")[0]+"000000000")
+            r = requests.post(mon_url, data=data_string, cert=('/etc/pki/client.crt', '/etc/pki/client.key'), verify="/usr/local/share/ca-certificates/ca.crt")
     if region == "DEFAULT" or not REGIONS[region]["ags"] or not REGIONS[region]["token"]:
         continue
     incidence = round(DATA[REGIONS[region]["ags"]], 1)
@@ -230,13 +234,12 @@ for region in REGIONS:
         url = "https://cms.integreat-app.de/"+(REGIONS[region]["address"] if "address" in REGIONS[region] else region)+"/wp-json/extensions/v3/pushpage"
         p = requests.post(url, json=request_data)
         print(region + p.text)
-        url_string = 'https://monitoring.tuerantuer.org/write?db=cms'
         data_string = 'corona,host=server12,status=success,target={} value={} {}'.format(region, 1 if p.json()["status"]=="success" else 0, str(time.time()).split(".")[0]+"000000000")
-        r = requests.post(url_string, data=data_string, cert=('/etc/pki/client.crt', '/etc/pki/client.key'), verify="/usr/local/share/ca-certificates/ca.crt")
+        r = requests.post(mon_url, data=data_string, cert=('/etc/pki/client.crt', '/etc/pki/client.key'), verify="/usr/local/share/ca-certificates/ca.crt")
     except:
         try:
             data_string = 'corona,host=server12,status=success,target={} value={} {}'.format(region, 0, str(time.time()).split(".")[0]+"000000000")
-            r = requests.post(url_string, data=data_string, cert=('/etc/pki/client.crt', '/etc/pki/client.key'), verify="/usr/local/share/ca-certificates/ca.crt")
+            r = requests.post(mon_url, data=data_string, cert=('/etc/pki/client.crt', '/etc/pki/client.key'), verify="/usr/local/share/ca-certificates/ca.crt")
         except:
             pass
         print("Error for {}".format(region))
