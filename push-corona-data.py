@@ -223,8 +223,6 @@ for region in REGIONS:
         continue
     mon_url = 'https://monitoring.tuerantuer.org/write?db=cms'
     if "token" not in REGIONS[region] or "ags" not in REGIONS[region] or not REGIONS[region]["ags"] or not REGIONS[region]["token"]:
-        data_string = 'corona,host=server12,status=success,target={} value={} {}'.format(region, 0, str(time.time()).split(".")[0]+"000000000")
-        r = requests.post(mon_url, data=data_string, cert=('/etc/pki/client.crt', '/etc/pki/client.key'), verify="/usr/local/share/ca-certificates/ca.crt")
         continue
     incidence = round(DATA[REGIONS[region]["ags"]], 1)
     message = create_message(region, incidence)
