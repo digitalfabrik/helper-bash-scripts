@@ -165,7 +165,7 @@ def fetch_data(region, period):
         if args.verbose:
             print(url)
         stats[lang] = requests.get(url).json()
-    url = "https://{}/index.php?date={}&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite={}&method=API.get&module=API&period={}&segment=referrerUrl%3D%3D&token_auth={}".format(
+    url = "https://{}/index.php?date={}&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite={}&method=API.get&module=API&period={}&segment=pageUrl=@%252Fpages&token_auth={}".format(
         domain, date_string, site_id, period, api_key)
     if args.verbose:
         print(url)
