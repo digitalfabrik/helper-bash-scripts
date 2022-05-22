@@ -230,7 +230,7 @@ for region in REGIONS:
         continue
     try:
         request_data = {"token": REGIONS[region]["token"], "content": message}
-        url = "https://cms.integreat-app.de/"+(REGIONS[region]["address"] if "address" in REGIONS[region] else region)+"/wp-json/extensions/v3/pushpage"
+        url = "https://cms.integreat-app.de/"+(REGIONS[region]["address"] if "address" in REGIONS[region] else region)+"/wp-json/extensions/v3/pushpage/"
         p = requests.post(url, json=request_data)
         print(region + p.text)
         data_string = 'corona,host=server12,status=success,target={} value={} {}'.format(region, 1 if p.json()["status"]=="success" else 0, str(time.time()).split(".")[0]+"000000000")
