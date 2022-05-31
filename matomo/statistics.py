@@ -234,7 +234,14 @@ def dump_data(region, period, stats):
 
 
 def generate_mails(region, files):
-    text = """Dies ist eine automatisch generierte E-Mail mit den aktuellen
+    text = """** Wichtiger Hinweis **
+In unserem Redaktionssystem können Sie ab sofort über den Menüpunkt
+„Analyse -> Statistiken“ jederzeit für individuelle Zeiträume die Roh-
+und Diagrammdaten exportieren. Die automatischen E-Mails werden zum Ende
+des Quartals 2/2022 eingestellt, d.h. der letztmalige Versand erfolgt
+am 01.07.2022.
+
+Dies ist eine automatisch generierte E-Mail mit den aktuellen
 Integreat-Statistiken für Ihre Kommune.
 
 Folgende Daten finden Sie im Anhang:
