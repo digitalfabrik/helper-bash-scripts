@@ -167,6 +167,11 @@ TRANSLATION = {
         "incidence": "7-денна захворюваність",
         "update": ",",
         "refresh": "Перетягніть вниз, щоб оновити.",
+    },
+    "zh-cn": {
+        "incidence": "7天发病率",
+        "update": ",",
+        "refresh": "下拉刷新。",
     }
 }
 
