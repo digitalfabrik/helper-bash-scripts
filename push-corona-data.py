@@ -19,8 +19,8 @@ TRANSLATION = {
     "de-si": {
         "incidence": "7-Tage-Inzidenz",
         "update": "am",
-        "info": "Die Seiten unten enthalten Informationen zu geltenden Einschränkungen bei verschiedenen Inzidenz-Raten.",
-        "refresh": "Zum Aktualisieren nach unten ziehen.",
+        "info": "Wie viele Fälle vom Corona-Virus gab es in den letzten 7 Tagen?",
+        "refresh": "Ziehen Sie unten am Bild-Schirm-Rand nach oben. Dadurch bekommen Sie die aktuelle Zahl.",
     },
     "am": {
         "incidence": "7 ቀን የመያዝ መጠን",
