@@ -20,7 +20,7 @@ TRANSLATION = {
         "incidence": "7-Tage-Inzidenz",
         "update": "am",
         "info": "Wie viele Fälle vom Corona-Virus gab es in den letzten 7 Tagen?",
-        "refresh": "Ziehen Sie unten am Bild-Schirm-Rand nach oben. Dadurch bekommen Sie die aktuelle Zahl.",
+        "refresh": "Ziehen Sie oben am Bild-Schirm-Rand nach unten. Dadurch bekommen Sie die aktuelle Zahl.",
     },
     "am": {
         "incidence": "7 ቀን የመያዝ መጠን",
