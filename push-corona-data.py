@@ -17,10 +17,9 @@ TRANSLATION = {
         "refresh": "Zum Aktualisieren nach unten ziehen.",
     },
     "de-si": {
-        "incidence": "7-Tage-Inzidenz",
+        "incidence": "In den letzten 7 Tagen sind so viele Menschen vom Corona-Virus krank geworden",
         "update": "am",
-        "info": "Wie viele Fälle vom Corona-Virus gab es in den letzten 7 Tagen?",
-        "refresh": "Ziehen Sie oben am Bild-Schirm-Rand nach unten. Dadurch bekommen Sie die aktuelle Zahl.",
+        "refresh": "Wischen Sie auf dem Bildschirm nach unten. So sehen Sie die immer die aktuelle Zahl.",
     },
     "am": {
         "incidence": "7 ቀን የመያዝ መጠን",
