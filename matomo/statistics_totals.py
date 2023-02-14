@@ -46,7 +46,8 @@ COLOR = {
     'zh-cn': '#6e750e',
     'prs': '#e6daa6',
     'sq': '#0504aa',
-    'uk': '#001146'
+    'uk': '#001146',
+    'pt': '#cea2fd'
 }
 
 AX_TITLE = {
@@ -84,7 +85,8 @@ AX_TITLE = {
     'zh-cn': 'Chinesisch',
     'prs': 'Dari',
     'sq': 'Albanisch',
-    'uk': 'Ukraininisch'
+    'uk': 'Ukraininisch',
+    'pt': 'Portugisisch'
 }
 
 PERIODS_ADJ = {
