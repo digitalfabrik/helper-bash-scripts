@@ -297,16 +297,18 @@ def main():
         file_list = []
         dates = get_dates()
         month = dates[1].strftime('%Y-%m')
-        tempdir = "/tmp/integreat-stats-{}".format(month)
-        try:
-            os.mkdir(tempdir)
-        except FileExistsError:
-            pass
+
         stats = get_dict(fetch_data(region, regions, dates))
         total_stats = sum_stats(total_stats, stats)
+
+    tempdir = "/tmp/integreat-stats-{}".format(month)
+    try:
+        os.mkdir(tempdir)
+    except FileExistsError:
+        pass
     file_list.append(plot("total", total_stats, month, tempdir))
     file_list.append(dump_data("total", total_stats, month, tempdir))
-    os.chmod("/var/www/statistics/{}".format(month), 0o755)
+    os.chmod(tempdir, 0o755)
 
 
 PARSER = argparse.ArgumentParser()
