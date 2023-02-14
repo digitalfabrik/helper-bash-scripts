@@ -7,6 +7,7 @@ import argparse
 import csv
 import datetime
 import os
+import tempfile
 import requests
 
 from dateutil.rrule import rrule, MONTHLY, DAILY
@@ -267,13 +268,27 @@ def sum_stats(total_stats, stats):
 
 def read_regions_csv(csv_path):
     """
-    Read CSV file with region information with format:
+    Open Remote or local CSV file with region defintion
+
+    """
+    if csv_path.startswith("https://"):
+        temp_name = next(tempfile._get_candidate_names())  # pylint: disable=protected-access
+        remote_csv = requests.get(csv_path).content
+        with open(temp_name, 'wb') as csvfile:
+            csvfile.write(remote_csv)
+            return parse_csv_file(temp_name)
+    return parse_csv_file(csv_path)
+
+def parse_csv_file(csv_path):
+    """
+    Parse local CSV file with format:
     name, matomo_id, languages
     """
     regions = {}
     with open(csv_path, newline='\n') as csvfile:
         csv_reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for row in csv_reader:
+            print(row)
             if row[0] == "slug":
                 continue
             regions[row[0]] = {
@@ -316,7 +331,7 @@ PARSER.add_argument("--verbose", help="increase output verbosity", action='store
 PARSER.add_argument("--region",
                     help="Comma separated list of regions to send statistics to. Use quotes.")
 PARSER.add_argument("--month", help="A month for which to send the data. Format: YYYY-MM")
-PARSER.add_argument("--csv-path", help="Path to regions CSV file")
+PARSER.add_argument("--csv-path", help="Path to regions CSV file or remote URL")
 PARSER.add_argument("--matomo-url", help="URL to Matomo")
 PARSER.add_argument("--matomo-token", help="Matomo API Token")
 PARSER.add_argument("--daily", help="Plot daily not monthly intervals.")
