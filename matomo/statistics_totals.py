@@ -43,7 +43,7 @@ COLOR = {
     'ka': '#35063e',
     'ckb': '#01ff07',
     'mk': '#650021',
-    'zh-CN': '#6e750e',
+    'zh-cn': '#6e750e',
     'prs': '#e6daa6',
     'sq': '#0504aa',
     'uk': '#001146'
@@ -81,7 +81,7 @@ AX_TITLE = {
     'ka': 'Georgisch',
     'ckb': 'Sorani',
     'mk': 'Mazedonisch',
-    'zh-CN': 'Chinesisch',
+    'zh-cn': 'Chinesisch',
     'prs': 'Dari',
     'sq': 'Albanisch',
     'uk': 'Ukraininisch'
