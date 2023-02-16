@@ -14,6 +14,7 @@ from dateutil.rrule import rrule, MONTHLY, DAILY
 
 COLOR = {
     'offline-downloads': '#000000',
+    'total-downloads': '#000000',
     'de': '#7e1e9c',
     'en': '#15b01a',
     'fr': '#0343df',
@@ -54,6 +55,7 @@ COLOR = {
 
 AX_TITLE = {
     'offline-downloads': 'Offline Downloads',
+    'total-Downloads': 'Alle Downloads',
     'de': 'Deutsch',
     'en': 'Englisch',
     'es': 'Spanisch',
@@ -252,18 +254,29 @@ def period_string():
 
 def sum_stats(total_stats, stats):
     """
-    Add stats of single region to sum of all regions
+    Add stats of single region to sum of all regions. Also sum all languages
+    up to "total-downloads"
     """
+    if not total_stats:
+        total_stats = {
+            "total-downloads": {},
+        }
+
     for lang in stats:
         if lang in total_stats:
-            for key in stats[lang]["dict"]:
-                val = stats[lang]["dict"][key]
-                if key in total_stats[lang]["dict"]:
-                    total_stats[lang]["dict"][key] += val
+            for date_key in stats[lang]["dict"]:
+                val = stats[lang]["dict"][date_key]
+                if date_key in total_stats[lang]["dict"]:
+                    total_stats[lang]["dict"][date_key] += val
                 else:
-                    total_stats[lang]["dict"][key] = val
+                    total_stats[lang]["dict"][date_key] = val
+                if date_key in total_stats["total-downloads"]:
+                    total_stats["total-downloads"][date_key] += val
+                else:
+                    total_stats["total-downloads"][date_key] = val
         else:
             total_stats[lang] = stats[lang]
+            total_stats["total-downloads"] = stats[lang]
     return total_stats
 
 def read_regions_csv(csv_path):
@@ -288,7 +301,6 @@ def parse_csv_file(csv_path):
     with open(csv_path, newline='\n') as csvfile:
         csv_reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for row in csv_reader:
-            print(row)
             if row[0] == "slug":
                 continue
             regions[row[0]] = {
