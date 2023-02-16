@@ -155,7 +155,7 @@ def fetch_data(region, regions, dates):
             print("Fetching data for (%s, %s)" % (regions[region]["name"], lang))
         url = ("https://{}/index.php?date={}&expanded=1&filter_limit=-1&"
                "format=JSON&format_metrics=1&idSite={}&method=API.get&module=API&"
-               "period={}&segment=pageUrl%253D@%25252F{}%25252Fwp-json%25252F&"
+               "period={}&segment=pageUrl=@/{}/wp-json/extensions/v3/children&"
                "token_auth={}").format(
                    ARGS.matomo_url, date_string, regions[region]["site_id"],
                    period_string(), lang, ARGS.matomo_token)
@@ -165,7 +165,7 @@ def fetch_data(region, regions, dates):
 
     url = ("https://{}/index.php?date={}&expanded=1&filter_limit=-1&format=JSON&"
            "format_metrics=1&idSite={}&method=API.get&module=API&period={}&"
-           "segment=pageUrl=@%252Fpages&token_auth={}").format(
+           "segment=pageUrl=@/wp-json/extensions/v3/pages&token_auth={}").format(
                ARGS.matomo_url, date_string, regions[region]["site_id"],
                period_string(), ARGS.matomo_token)
     if ARGS.verbose:
