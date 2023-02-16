@@ -55,7 +55,7 @@ COLOR = {
 
 AX_TITLE = {
     'offline-downloads': 'Offline Downloads',
-    'total-Downloads': 'Alle Downloads',
+    'total-downloads': 'Alle Downloads',
     'de': 'Deutsch',
     'en': 'Englisch',
     'es': 'Spanisch',
