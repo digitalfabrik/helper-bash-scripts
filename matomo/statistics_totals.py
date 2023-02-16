@@ -270,7 +270,7 @@ def sum_stats(total_stats, stats):
                     total_stats[lang]["dict"][date_key] += val
                 else:
                     total_stats[lang]["dict"][date_key] = val
-                if date_key in total_stats["total-downloads"]:
+                if date_key in total_stats["total-downloads"]["dict"]:
                     total_stats["total-downloads"]["dict"][date_key] += val
                 else:
                     total_stats["total-downloads"]["dict"][date_key] = val
@@ -285,7 +285,7 @@ def read_regions_csv(csv_path):
 
     """
     if csv_path.startswith("https://"):
-        temp_name = next(tempfile._get_candidate_names())  # pylint: disable=protected-access
+        temp_name = os.path.join("/tmp", next(tempfile._get_candidate_names()))  # pylint: disable=protected-access
         remote_csv = requests.get(csv_path).content
         with open(temp_name, 'wb') as csvfile:
             csvfile.write(remote_csv)
