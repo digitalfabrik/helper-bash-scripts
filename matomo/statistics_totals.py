@@ -271,9 +271,9 @@ def sum_stats(total_stats, stats):
                 else:
                     total_stats[lang]["dict"][date_key] = val
                 if date_key in total_stats["total-downloads"]:
-                    total_stats["total-downloads"][date_key] += val
+                    total_stats["total-downloads"]["dict"][date_key] += val
                 else:
-                    total_stats["total-downloads"][date_key] = val
+                    total_stats["total-downloads"]["dict"][date_key] = val
         else:
             total_stats[lang] = stats[lang]
             total_stats["total-downloads"] = stats[lang]
