@@ -23,7 +23,7 @@ def log_influxdb(period, key, value, timestamp):
     """
     influx_data = "cms-access,period={} {}={} {}".format(
         period, key, value,
-        int(datetime.datetime.strptime(timestamp, "%Y-%m-%d").strftime('%s'))*1000*1000)
+        int(datetime.datetime.strptime(timestamp, "%Y-%m-%d").strftime('%s'))*1000*1000*1000)
     requests.post('https://monitoring.tuerantuer.org/write?db=okr',
                   influx_data.encode(),
                   cert=('/etc/pki/client.crt', '/etc/pki/client.key'),
