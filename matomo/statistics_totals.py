@@ -346,7 +346,7 @@ PARSER.add_argument("--month", help="A month for which to send the data. Format:
 PARSER.add_argument("--csv-path", help="Path to regions CSV file or remote URL")
 PARSER.add_argument("--matomo-url", help="URL to Matomo")
 PARSER.add_argument("--matomo-token", help="Matomo API Token")
-PARSER.add_argument("--daily", help="Plot daily not monthly intervals.")
+PARSER.add_argument("--daily", help="Plot daily not monthly intervals.", action='store_true')
 ARGS = PARSER.parse_args()
 
 main()
