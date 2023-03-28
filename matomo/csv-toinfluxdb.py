@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Send data from statistics CSV to InfluxDb
+"""
 
 import argparse
 import csv
@@ -29,7 +32,7 @@ def main():
     iterate over regions and languages
     """
     with open(ARGS.csv, newline='') as csvfile:
-        statsreader = csv.reader(csvfile, delimiter=',')
+        statsreader = csv.DictReader(csvfile, delimiter=',')
         for row in statsreader:
             for key in ["offline-downloads", "total-downloads"]:
                 log_influxdb(period_string(), key, row[key], row["date"])
